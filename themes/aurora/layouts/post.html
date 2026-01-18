@@ -1,0 +1,433 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }} - {{ site.title }}{% endblock %}
+
+{% block head %}
+<style>
+    /* Post Header */
+    .post-header {
+        padding: 80px 0 60px;
+        text-align: center;
+        position: relative;
+    }
+
+    .post-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 600px;
+        height: 600px;
+        background: var(--accent-gradient);
+        border-radius: 50%;
+        filter: blur(150px);
+        opacity: 0.2;
+        transform: translateX(-50%);
+        z-index: -1;
+    }
+
+    .post-header__category {
+        display: inline-block;
+        background: var(--accent-gradient);
+        color: white;
+        padding: 8px 20px;
+        border-radius: 24px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 20px;
+    }
+
+    .post-header__title {
+        font-family: 'Source Sans 3', sans-serif;
+        font-size: 3rem;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 24px;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .post-header__meta {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        display: flex;
+        justify-content: center;
+        gap: 24px;
+    }
+
+    /* Post Cover */
+    .post-cover {
+        margin-bottom: 48px;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: var(--shadow-glass);
+    }
+
+    .post-cover img {
+        width: 100%;
+        max-height: 500px;
+        object-fit: cover;
+    }
+
+    /* Post Content */
+    .post-content {
+        font-size: 1.125rem;
+        line-height: 1.9;
+        color: var(--text-primary);
+    }
+
+    .post-content h2 {
+        font-family: 'Source Sans 3', sans-serif;
+        font-size: 1.75rem;
+        margin: 48px 0 20px;
+        font-weight: 600;
+    }
+
+    .post-content h3 {
+        font-size: 1.35rem;
+        margin: 36px 0 16px;
+        font-weight: 600;
+    }
+
+    .post-content p {
+        margin-bottom: 1.5em;
+    }
+
+    .post-content a {
+        color: var(--accent-color);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+    }
+
+    .post-content blockquote {
+        border-left: 4px solid var(--accent-color);
+        padding: 20px 28px;
+        margin: 28px 0;
+        background: var(--bg-secondary);
+        border-radius: 0 16px 16px 0;
+        font-style: italic;
+        color: var(--text-secondary);
+    }
+
+    .post-content img {
+        border-radius: 16px;
+        margin: 28px 0;
+        box-shadow: var(--shadow-card);
+    }
+
+    /* Code Blocks */
+    .post-content pre {
+        background: #1e1e2e;
+        border-radius: 16px;
+        padding: 24px;
+        overflow-x: auto;
+        margin: 28px 0;
+        position: relative;
+    }
+
+    .post-content code {
+        font-family: 'Fira Code', Consolas, monospace;
+        font-size: 0.9rem;
+    }
+
+    .post-content :not(pre)>code {
+        background: var(--bg-glass);
+        padding: 3px 10px;
+        border-radius: 6px;
+        color: var(--accent-color);
+    }
+
+    .code-copy-btn {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        padding: 8px 14px;
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 0.8rem;
+        color: #94a3b8;
+        transition: all 0.2s;
+    }
+
+    .code-copy-btn:hover {
+        background: var(--accent-color);
+        color: white;
+    }
+
+    /* Tags */
+    .post-tags {
+        margin-top: 48px;
+        padding-top: 28px;
+        border-top: 1px solid var(--border-color);
+    }
+
+    .post-tags__list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .post-tags__list a {
+        padding: 8px 18px;
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: 24px;
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+        transition: all 0.3s;
+    }
+
+    .post-tags__list a:hover {
+        background: var(--accent-gradient);
+        color: white;
+        border-color: transparent;
+    }
+
+    /* Post Navigation */
+    .post-nav {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        margin-top: 48px;
+        padding-top: 32px;
+        border-top: 1px solid var(--border-color);
+    }
+
+    .post-nav__item {
+        padding: 24px;
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 16px;
+        transition: all 0.3s;
+    }
+
+    .post-nav__item:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-glass);
+    }
+
+    .post-nav__item--next {
+        text-align: right;
+    }
+
+    .post-nav__label {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        margin-bottom: 8px;
+    }
+
+    .post-nav__title {
+        font-family: 'Source Sans 3', sans-serif;
+        font-weight: 600;
+        color: var(--text-primary);
+    }
+
+    /* Related Posts */
+    .related {
+        margin-top: 60px;
+        padding-top: 40px;
+        border-top: 1px solid var(--border-color);
+    }
+
+    .related__title {
+        font-family: 'Source Sans 3', sans-serif;
+        font-size: 1.5rem;
+        margin-bottom: 28px;
+        text-align: center;
+    }
+
+    .related__grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+    }
+
+    .related__card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 16px;
+        overflow: hidden;
+        transition: all 0.3s;
+    }
+
+    .related__card:hover {
+        transform: translateY(-6px);
+        box-shadow: var(--shadow-glass);
+    }
+
+    .related__card-image {
+        width: 100%;
+        height: 140px;
+        object-fit: cover;
+    }
+
+    .related__card-body {
+        padding: 20px;
+    }
+
+    .related__card-title {
+        font-family: 'Source Sans 3', sans-serif;
+        font-weight: 600;
+        font-size: 1rem;
+        color: var(--text-primary);
+        line-height: 1.4;
+    }
+
+    .related__card-date {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        margin-top: 8px;
+    }
+
+    @media (max-width: 768px) {
+        .post-header__title {
+            font-size: 2rem;
+        }
+
+        .post-nav {
+            grid-template-columns: 1fr;
+        }
+
+        .post-nav__item--next {
+            text-align: left;
+        }
+
+        .related__grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<!-- Highlight.js -->
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/tokyo-night-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<article>
+    <div class="container container--narrow">
+        <!-- Header -->
+        <header class="post-header">
+            {% if post.categories | length > 0 %}
+            <a href="/category/{{ post.categories | first | slugify }}/" class="post-header__category">
+                {{ post.categories | first }}
+            </a>
+            {% endif %}
+            <h1 class="post-header__title">{{ post.title }}</h1>
+            <div class="post-header__meta">
+                <span>📅 {{ post.date }}</span>
+                <span>✍️ {{ post.author | default(value='Admin') }}</span>
+            </div>
+        </header>
+
+        <!-- Cover -->
+        {% if post.cover %}
+        <div class="post-cover">
+            <img src="{{ post.cover }}" alt="{{ post.title }}">
+        </div>
+        {% endif %}
+
+        <!-- Content -->
+        <div class="post-content">
+            {{ post.content | safe }}
+        </div>
+
+        <!-- Tags -->
+        {% if post.tags | length > 0 %}
+        <div class="post-tags">
+            <div class="post-tags__list">
+                {% for tag in post.tags %}
+                <a href="/tag/{{ tag | slugify }}/">{{ tag }}</a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Navigation -->
+        {% if navigation %}
+        <nav class="post-nav">
+            {% if navigation.prev %}
+            <a href="{{ navigation.prev.url }}" class="post-nav__item">
+                <div class="post-nav__label">← Bài trước</div>
+                <div class="post-nav__title">{{ navigation.prev.title }}</div>
+            </a>
+            {% else %}
+            <div></div>
+            {% endif %}
+
+            {% if navigation.next %}
+            <a href="{{ navigation.next.url }}" class="post-nav__item post-nav__item--next">
+                <div class="post-nav__label">Bài sau →</div>
+                <div class="post-nav__title">{{ navigation.next.title }}</div>
+            </a>
+            {% endif %}
+        </nav>
+        {% endif %}
+
+        <!-- Related Posts -->
+        {% if related | length > 0 %}
+        <section class="related">
+            <h3 class="related__title">✨ Bài viết liên quan</h3>
+            <div class="related__grid">
+                {% for r in related | slice(end=3) %}
+                <a href="{{ r.url }}" class="related__card">
+                    {% if r.cover %}
+                    <img src="{{ r.cover }}" alt="{{ r.title }}" class="related__card-image" loading="lazy">
+                    {% else %}
+                    <div class="related__card-image" style="background: var(--accent-gradient);"></div>
+                    {% endif %}
+                    <div class="related__card-body">
+                        <div class="related__card-title">{{ r.title }}</div>
+                        <div class="related__card-date">{{ r.date }}</div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+    </div>
+</article>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    hljs.highlightAll();
+
+    document.querySelectorAll('.post-content pre').forEach(pre => {
+        const btn = document.createElement('button');
+        btn.className = 'code-copy-btn';
+        btn.textContent = '📋 Copy';
+        btn.onclick = () => {
+            const code = pre.querySelector('code') || pre;
+            navigator.clipboard.writeText(code.textContent).then(() => {
+                btn.textContent = '✅ Copied!';
+                setTimeout(() => { btn.textContent = '📋 Copy'; }, 2000);
+            });
+        };
+        pre.appendChild(btn);
+    });
+
+    // Auto-embed YouTube links
+    document.querySelectorAll('.post-content a[href*="youtube.com/watch"], .post-content a[href*="youtu.be/"]').forEach(link => {
+        const url = link.href;
+        let videoId = '';
+        if (url.includes('youtube.com/watch')) {
+            videoId = new URL(url).searchParams.get('v');
+        } else if (url.includes('youtu.be/')) {
+            videoId = url.split('youtu.be/')[1].split('?')[0];
+        }
+        if (videoId) {
+            const wrapper = document.createElement('div');
+            wrapper.style.cssText = 'position:relative;padding-bottom:56.25%;height:0;margin:24px 0;border-radius:16px;overflow:hidden;';
+            wrapper.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allowfullscreen></iframe>`;
+            link.parentNode.replaceChild(wrapper, link);
+        }
+    });
+</script>
+{% endblock %}

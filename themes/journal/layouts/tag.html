@@ -1,0 +1,202 @@
+{% extends "base.html" %}
+
+{% block title %}{{ tag }} - {{ site.title }}{% endblock %}
+
+{% block head %}
+<style>
+    .archive-header {
+        text-align: center;
+        padding: 48px 0;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 48px;
+    }
+
+    .archive-label {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--accent);
+        margin-bottom: 12px;
+    }
+
+    .archive-title {
+        font-family: 'Noto Serif', serif;
+        font-size: 36px;
+        font-weight: 700;
+        color: var(--text-dark);
+    }
+
+    .archive-count {
+        font-size: 14px;
+        color: var(--text-muted);
+        margin-top: 12px;
+    }
+
+    .card-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 32px;
+        margin-bottom: 48px;
+    }
+
+    .mag-card {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        cursor: pointer;
+    }
+
+    .mag-card-image {
+        position: relative;
+        aspect-ratio: 4/5;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid var(--border);
+        background: var(--bg-surface);
+    }
+
+    .mag-card-bg {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        transition: transform 0.7s ease;
+    }
+
+    .mag-card:hover .mag-card-bg {
+        transform: scale(1.1);
+    }
+
+    .mag-card-image-placeholder {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, var(--primary) 0%, #2a7a94 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: rgba(255, 255, 255, 0.3);
+        font-family: 'Noto Serif', serif;
+        font-size: 48px;
+        font-weight: 700;
+    }
+
+    .mag-card-gradient {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 60%);
+    }
+
+    .mag-card-category {
+        position: absolute;
+        bottom: 24px;
+        left: 24px;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--accent);
+    }
+
+    .mag-card-title {
+        font-family: 'Noto Serif', serif;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 1.4;
+        color: var(--text-dark);
+        transition: color 0.2s;
+    }
+
+    .mag-card:hover .mag-card-title {
+        color: var(--primary);
+    }
+
+    [data-theme="dark"] .mag-card:hover .mag-card-title {
+        color: var(--accent);
+    }
+
+    .mag-card-meta {
+        font-size: 12px;
+        color: var(--text-muted);
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .pagination a,
+    .pagination span {
+        padding: 12px 20px;
+        background: var(--bg-surface);
+        border: 1px solid var(--border);
+        font-size: 13px;
+        font-weight: 600;
+        transition: all 0.2s;
+    }
+
+    .pagination a:hover,
+    .pagination .current {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+    }
+
+    @media (max-width: 1024px) {
+        .card-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .archive-title {
+            font-size: 28px;
+        }
+
+        .card-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<header class="archive-header">
+    <div class="wrapper">
+        <div class="archive-label"># Tag</div>
+        <h1 class="archive-title">{{ tag }}</h1>
+        <p class="archive-count">{{ posts | length }} bài viết</p>
+    </div>
+</header>
+
+<section class="wrapper">
+    <div class="card-grid">
+        {% for post in posts %}
+        <article class="mag-card" onclick="location.href='{{ post.url }}'">
+            <div class="mag-card-image">
+                {% if post.cover %}
+                <div class="mag-card-bg" style="background-image: url('{{ post.cover }}');"></div>
+                {% else %}
+                <div class="mag-card-image-placeholder">J</div>
+                {% endif %}
+                <div class="mag-card-gradient"></div>
+                {% if post.categories | length > 0 %}
+                <span class="mag-card-category">{{ post.categories | first }}</span>
+                {% endif %}
+            </div>
+            <h3 class="mag-card-title">{{ post.title }}</h3>
+            <div class="mag-card-meta">{{ post.date }}</div>
+        </article>
+        {% endfor %}
+    </div>
+
+    {% if pagination is defined and pagination.total_pages is defined and pagination.total_pages > 1 %}
+    <nav class="pagination">
+        {% if pagination.has_prev %}<a href="{{ pagination.prev_url }}">← Trước</a>{% endif %}
+        <span class="current">{{ pagination.current_page }}/{{ pagination.total_pages }}</span>
+        {% if pagination.has_next %}<a href="{{ pagination.next_url }}">Sau →</a>{% endif %}
+    </nav>
+    {% endif %}
+</section>
+{% endblock %}

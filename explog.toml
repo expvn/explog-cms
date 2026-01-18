@@ -1,0 +1,74 @@
+# Explog Site Configuration
+
+[site]
+title = "EXPVN"
+base_url = "https://expvn.com"
+description = "Blog Game, công nghệ và lập trình"
+language = "vi"
+
+# Navigation Menu
+[[site.navigation]]
+label = "Trang chủ"
+url = "/"
+
+[[site.navigation]]
+label = "Chuyên mục"
+url = "#"
+children = [
+    { label = "Blog", url = "/category/blog/" },
+    { label = "Game", url = "/category/game/" },
+    { label = "Develop", url = "/category/develop/" },
+    { label = "Tool", url = "/category/tool/" },
+    { label = "General", url = "/category/general/" }
+]
+
+[[site.navigation]]
+label = "Game"
+url = "#"
+children = [
+    { label = "Space Survival 1", url = "/test-webgl/" },
+    { label = "Space Survival 2", url = "/spacesurvival/" },
+]
+
+[[site.navigation]]
+label = "Giới thiệu"
+url = "/about/"
+
+[[site.navigation]]
+label = "Liên hệ"
+url = "/contact/"
+
+# Social Links
+[[site.socials]]
+platform = "github"
+url = "https://github.com/username"
+
+[[site.socials]]
+platform = "facebook"
+url = "https://facebook.com/expvn"
+
+# Authors
+[authors.admin]
+name = "Admin"
+email = "admin@example.com"
+bio = "Site administrator"
+
+[authors.guest]
+name = "Guest Writer"
+
+# Build Settings
+[build]
+theme = "vibe"
+output_dir = "public"
+minify = true
+strict_assets = false
+
+# Content Paths
+[content]
+posts_dir = "content/posts"
+pages_dir = "content/pages"
+
+# SEO Settings
+[seo]
+generate_sitemap = true
+generate_rss = true

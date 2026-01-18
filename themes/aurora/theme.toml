@@ -1,0 +1,27 @@
+# Aurora Theme Configuration
+
+[theme]
+name = "aurora"
+version = "1.0.0"
+description = "Artistic glassmorphism theme with gradient backgrounds and unique post cards"
+author = "Explog Team"
+extends = ""
+
+[layout.home]
+sections = ["hero", "posts"]
+sidebar = false
+widgets = []
+
+[layout.post]
+sections = ["header", "content", "navigation", "related"]
+sidebar = false
+widgets = []
+
+[settings]
+posts_per_page = 9
+related_posts_count = 3
+show_reading_time = true
+show_author = true
+show_date = true
+show_categories = true
+show_tags = true

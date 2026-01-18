@@ -1,0 +1,22 @@
+<div class="container header-inner">
+    <nav class="nav-links">
+        <a href="/">Home</a>
+        {% for item in site.navigation %}
+        <a href="{{ item.url }}">{{ item.label }}</a>
+        {% endfor %}
+    </nav>
+
+    <div class="site-logo">
+        <a href="/">
+            <h1>{{ site.title | default(value="Magazina") }}</h1>
+            <span>Modern Editorial</span>
+        </a>
+    </div>
+
+    <div class="header-actions">
+        <!-- Search would go here -->
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">
+            <span class="material-symbols-outlined">contrast</span>
+        </button>
+    </div>
+</div>

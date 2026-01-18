@@ -1,0 +1,323 @@
+{% extends "base.html" %}
+
+{% block title %}{{ site.title }} - Trang chủ{% endblock %}
+
+{% block head %}
+<style>
+    /* Hero Section - Artistic */
+    .hero {
+        position: relative;
+        padding: 100px 0 80px;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    .hero::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 800px;
+        height: 800px;
+        background: var(--accent-gradient);
+        border-radius: 50%;
+        filter: blur(120px);
+        opacity: 0.3;
+        transform: translate(-50%, -50%);
+        z-index: -1;
+    }
+
+    .hero__title {
+        font-family: 'Source Sans 3', sans-serif;
+        font-size: 4rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        background: var(--accent-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .hero__desc {
+        font-size: 1.3rem;
+        color: var(--text-secondary);
+        max-width: 600px;
+        margin: 0 auto;
+        font-weight: 300;
+    }
+
+    /* Section */
+    .section {
+        margin-bottom: 80px;
+    }
+
+    .section__title {
+        font-family: 'Source Sans 3', sans-serif;
+        font-size: 2rem;
+        margin-bottom: 40px;
+        text-align: center;
+        position: relative;
+    }
+
+    .section__title::after {
+        content: '';
+        position: absolute;
+        bottom: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background: var(--accent-gradient);
+        border-radius: 2px;
+    }
+
+    /* Posts Grid - Masonry Style */
+    .posts-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 32px;
+    }
+
+    /* ===== UNIQUE POST CARD - Aurora Glass Card ===== */
+    .aurora-card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 24px;
+        overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .aurora-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--accent-gradient);
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .aurora-card:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: var(--shadow-glass);
+    }
+
+    .aurora-card:hover::before {
+        opacity: 1;
+    }
+
+    /* Card Image - Rounded Corners Inside */
+    .aurora-card__image {
+        display: block;
+        margin: 16px;
+        border-radius: 16px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .aurora-card__image img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        transition: transform 0.5s;
+    }
+
+    .aurora-card:hover .aurora-card__image img {
+        transform: scale(1.08);
+    }
+
+    .aurora-card__image-placeholder {
+        width: 100%;
+        height: 200px;
+        background: var(--accent-gradient);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+    }
+
+    /* Card Content */
+    .aurora-card__body {
+        padding: 8px 24px 24px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .aurora-card__category {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 14px;
+        background: var(--accent-gradient);
+        color: white;
+        font-size: 0.75rem;
+        font-weight: 600;
+        border-radius: 20px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        width: fit-content;
+        margin-bottom: 12px;
+    }
+
+    .aurora-card__title {
+        font-family: 'Source Sans 3', sans-serif;
+        font-size: 1.3rem;
+        font-weight: 600;
+        line-height: 1.4;
+        margin-bottom: 12px;
+        color: var(--text-primary);
+        transition: color 0.2s;
+    }
+
+    .aurora-card:hover .aurora-card__title {
+        color: var(--accent-color);
+    }
+
+    .aurora-card__excerpt {
+        font-size: 0.95rem;
+        color: var(--text-secondary);
+        line-height: 1.6;
+        margin-bottom: 16px;
+        flex-grow: 1;
+    }
+
+    .aurora-card__footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 16px;
+        border-top: 1px solid var(--border-color);
+    }
+
+    .aurora-card__date {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+    }
+
+    .aurora-card__read-more {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--accent-color);
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .aurora-card__read-more::after {
+        content: '→';
+        transition: transform 0.2s;
+    }
+
+    .aurora-card:hover .aurora-card__read-more::after {
+        transform: translateX(4px);
+    }
+
+    /* All cards same size */
+
+    /* Pagination */
+    .pagination {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 60px;
+    }
+
+    .pagination a,
+    .pagination span {
+        padding: 12px 24px;
+        background: var(--bg-glass);
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        font-weight: 500;
+        color: var(--text-secondary);
+        transition: all 0.3s;
+    }
+
+    .pagination a:hover {
+        background: var(--accent-gradient);
+        color: white;
+        border-color: transparent;
+        transform: translateY(-2px);
+    }
+
+    .pagination .current {
+        background: var(--accent-gradient);
+        color: white;
+        border-color: transparent;
+    }
+
+    @media (max-width: 768px) {
+        .hero__title {
+            font-size: 2.5rem;
+        }
+
+        .posts-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="hero">
+    <div class="container">
+        <h1 class="hero__title">{{ site.title }}</h1>
+        <p class="hero__desc">{{ site.description | default(value='Khám phá thế giới qua từng bài viết') }}</p>
+    </div>
+</section>
+
+<!-- Posts -->
+<section class="section">
+    <div class="container">
+        <h2 class="section__title">Bài viết mới nhất</h2>
+
+        <div class="posts-grid">
+            {% for post in posts %}
+            <article class="aurora-card">
+                <a href="{{ post.url }}" class="aurora-card__image">
+                    {% if post.cover %}
+                    <img src="{{ post.cover }}" alt="{{ post.title }}" loading="lazy">
+                    {% else %}
+                    <div class="aurora-card__image-placeholder">✨</div>
+                    {% endif %}
+                </a>
+                <div class="aurora-card__body">
+                    {% if post.categories | length > 0 %}
+                    <span class="aurora-card__category">{{ post.categories | first }}</span>
+                    {% endif %}
+                    <h3 class="aurora-card__title">
+                        <a href="{{ post.url }}">{{ post.title }}</a>
+                    </h3>
+                    <p class="aurora-card__excerpt">{{ post.summary | default(value='') | truncate(length=120) }}</p>
+                    <div class="aurora-card__footer">
+                        <span class="aurora-card__date">{{ post.date }}</span>
+                        <a href="{{ post.url }}" class="aurora-card__read-more">Đọc thêm</a>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if pagination is defined and pagination.total_pages is defined and pagination.total_pages > 1 %}
+        <nav class="pagination">
+            {% if pagination.has_prev and pagination.prev_url %}
+            <a href="{{ pagination.prev_url }}">← Trước</a>
+            {% endif %}
+            <span class="current">{{ pagination.current_page }} / {{ pagination.total_pages }}</span>
+            {% if pagination.has_next and pagination.next_url %}
+            <a href="{{ pagination.next_url }}">Sau →</a>
+            {% endif %}
+        </nav>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

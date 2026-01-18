@@ -1,0 +1,17 @@
+use anyhow::{Context, Result};
+use std::fs;
+use std::path::Path;
+
+use crate::models::SiteConfig;
+
+/// Load site configuration from TOML file
+pub fn load_config<P: AsRef<Path>>(path: P) -> Result<SiteConfig> {
+    let path = path.as_ref();
+    let content = fs::read_to_string(path)
+        .with_context(|| format!("Failed to read config file: {}", path.display()))?;
+
+    let config: SiteConfig = toml::from_str(&content)
+        .with_context(|| format!("Failed to parse config file: {}", path.display()))?;
+
+    Ok(config)
+}

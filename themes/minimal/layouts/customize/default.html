@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="customize-page">
+    <div class="container">
+        <header class="customize-header">
+            <h1>{{ page.title }}</h1>
+            {% if page.description %}
+            <p class="customize-description">{{ page.description }}</p>
+            {% endif %}
+        </header>
+
+        {% if items %}
+        <div class="gallery-grid">
+            {% for item in items %}
+            <a href="{{ item.url }}" class="gallery-item">
+                <div class="gallery-item__image">
+                    <img src="/{{ page.slug }}/{{ item.cover | split(pat='/') | last }}" alt="{{ item.title }}"
+                        loading="lazy">
+                </div>
+                <div class="gallery-item__content">
+                    <h3 class="gallery-item__title">{{ item.title }}</h3>
+                    <p class="gallery-item__desc">{{ item.description }}</p>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="customize-empty">
+            {{ content | safe }}
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<style>
+    .customize-page {
+        padding: 60px 0;
+    }
+
+    .customize-header {
+        margin-bottom: 48px;
+    }
+
+    .customize-header h1 {
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 12px;
+    }
+
+    .customize-description {
+        font-size: 1rem;
+        color: var(--text-muted, #666);
+    }
+
+    .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 24px;
+    }
+
+    .gallery-item {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .gallery-item:hover .gallery-item__title {
+        text-decoration: underline;
+    }
+
+    .gallery-item__image {
+        aspect-ratio: 16/10;
+        overflow: hidden;
+        border-radius: 4px;
+        margin-bottom: 12px;
+    }
+
+    .gallery-item__image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.2s;
+    }
+
+    .gallery-item:hover .gallery-item__image img {
+        transform: scale(1.02);
+    }
+
+    .gallery-item__content {
+        padding: 0;
+    }
+
+    .gallery-item__title {
+        font-size: 1.1rem;
+        font-weight: 500;
+        margin-bottom: 6px;
+    }
+
+    .gallery-item__desc {
+        font-size: 0.9rem;
+        color: var(--text-muted, #666);
+        line-height: 1.4;
+    }
+</style>
+{% endblock %}

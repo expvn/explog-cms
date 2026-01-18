@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="customize-page">
+    <div class="container">
+        <header class="customize-header">
+            <h1>{{ page.title }}</h1>
+            {% if page.description %}
+            <p class="customize-description">{{ page.description }}</p>
+            {% endif %}
+        </header>
+
+        {% if items %}
+        <div class="gallery-grid">
+            {% for item in items %}
+            <a href="{{ item.url }}" class="gallery-item">
+                <div class="gallery-item__image">
+                    <img src="/{{ page.slug }}/{{ item.cover | split(pat='/') | last }}" alt="{{ item.title }}"
+                        loading="lazy">
+                </div>
+                <div class="gallery-item__content">
+                    <h3 class="gallery-item__title">{{ item.title }}</h3>
+                    <p class="gallery-item__desc">{{ item.description }}</p>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="customize-empty">
+            {{ content | safe }}
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<style>
+    .customize-page {
+        padding: 60px 0;
+    }
+
+    .customize-header {
+        text-align: center;
+        margin-bottom: 48px;
+    }
+
+    .customize-header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 16px;
+        background: var(--gradient-primary, linear-gradient(135deg, #667eea, #764ba2));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .customize-description {
+        font-size: 1.1rem;
+        color: var(--text-muted, #666);
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 28px;
+    }
+
+    .gallery-item {
+        display: block;
+        background: var(--bg-card, #fff);
+        border-radius: 16px;
+        overflow: hidden;
+        text-decoration: none;
+        color: inherit;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .gallery-item:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .gallery-item__image {
+        aspect-ratio: 16/9;
+        overflow: hidden;
+    }
+
+    .gallery-item__image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover .gallery-item__image img {
+        transform: scale(1.05);
+    }
+
+    .gallery-item__content {
+        padding: 20px;
+    }
+
+    .gallery-item__title {
+        font-size: 1.2rem;
+        margin-bottom: 8px;
+    }
+
+    .gallery-item__desc {
+        font-size: 0.9rem;
+        color: var(--text-muted, #666);
+        line-height: 1.5;
+    }
+</style>
+{% endblock %}

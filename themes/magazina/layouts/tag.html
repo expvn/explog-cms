@@ -1,0 +1,208 @@
+{% extends "base.html" %}
+
+{% block title %}{{ tag }} - {{ site.title }}{% endblock %}
+
+{% block head %}
+<style>
+    .tag-header {
+        padding: 60px 0 48px;
+        text-align: center;
+        border-bottom: 1px solid var(--border-color);
+        margin-bottom: 48px;
+    }
+
+    .tag-header__label {
+        font-size: 0.6875rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--accent);
+        margin-bottom: 16px;
+    }
+
+    .tag-header__title {
+        font-family: 'Noto Serif', serif;
+        font-size: 3rem;
+        font-weight: 700;
+    }
+
+    .tag-header__count {
+        font-size: 0.875rem;
+        color: var(--text-muted);
+        margin-top: 12px;
+    }
+
+    .posts-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 48px;
+        margin-bottom: 60px;
+    }
+
+    .magazine-card {
+        cursor: pointer;
+        border-right: 1px solid var(--border-color);
+        padding-right: 24px;
+    }
+
+    .magazine-card:last-child {
+        border-right: none;
+        padding-right: 0;
+    }
+
+    .magazine-card__image {
+        aspect-ratio: 3/4;
+        overflow: hidden;
+        border-radius: 2px;
+        margin-bottom: 20px;
+    }
+
+    .magazine-card__image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.7s ease;
+    }
+
+    .magazine-card:hover .magazine-card__image img {
+        transform: scale(1.05);
+    }
+
+    .magazine-card__image-placeholder {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, var(--primary) 0%, #2a7a94 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: rgba(255, 255, 255, 0.5);
+        font-family: 'Noto Serif', serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+
+    .magazine-card__category {
+        font-size: 0.625rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--primary);
+        margin-bottom: 12px;
+    }
+
+    .magazine-card__title {
+        font-family: 'Noto Serif', serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+        line-height: 1.3;
+        margin-bottom: 12px;
+    }
+
+    .magazine-card:hover .magazine-card__title {
+        text-decoration: underline;
+        text-underline-offset: 4px;
+        text-decoration-thickness: 1px;
+    }
+
+    .magazine-card__meta {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.5625rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: var(--text-muted);
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .pagination a,
+    .pagination span {
+        padding: 12px 20px;
+        background: var(--bg-surface);
+        border: 1px solid var(--border-color);
+        font-size: 0.75rem;
+        font-weight: 600;
+        transition: all 0.2s;
+    }
+
+    .pagination a:hover,
+    .pagination .current {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+    }
+
+    @media (max-width: 1024px) {
+        .posts-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .tag-header__title {
+            font-size: 2rem;
+        }
+
+        .posts-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .magazine-card {
+            border-right: none;
+            padding-right: 0;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 32px;
+        }
+
+        .magazine-card:last-child {
+            border-bottom: none;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<header class="tag-header">
+    <div class="container">
+        <div class="tag-header__label"># Tag</div>
+        <h1 class="tag-header__title">{{ tag }}</h1>
+        <p class="tag-header__count">{{ posts | length }} bài viết</p>
+    </div>
+</header>
+
+<section class="container">
+    <div class="posts-grid">
+        {% for post in posts %}
+        <article class="magazine-card" onclick="location.href='{{ post.url }}'">
+            <div class="magazine-card__image">
+                {% if post.cover %}
+                <img src="{{ post.cover }}" alt="{{ post.title }}" loading="lazy">
+                {% else %}
+                <div class="magazine-card__image-placeholder">M</div>
+                {% endif %}
+            </div>
+            {% if post.categories | length > 0 %}
+            <span class="magazine-card__category">{{ post.categories | first }}</span>
+            {% endif %}
+            <h4 class="magazine-card__title">{{ post.title }}</h4>
+            <div class="magazine-card__meta">
+                <span>{{ post.date }}</span>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+
+    {% if pagination is defined and pagination.total_pages is defined and pagination.total_pages > 1 %}
+    <nav class="pagination">
+        {% if pagination.has_prev %}<a href="{{ pagination.prev_url }}">← Trước</a>{% endif %}
+        <span class="current">{{ pagination.current_page }}/{{ pagination.total_pages }}</span>
+        {% if pagination.has_next %}<a href="{{ pagination.next_url }}">Sau →</a>{% endif %}
+    </nav>
+    {% endif %}
+</section>
+{% endblock %}

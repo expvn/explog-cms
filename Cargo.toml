@@ -1,0 +1,75 @@
+[package]
+name = "explog"
+version = "0.3.6"
+edition = "2021"
+description = "A blazing fast static site generator written in Rust"
+authors = ["Explog Team"]
+
+[[bin]]
+name = "explog"
+path = "src/main.rs"
+
+[dependencies]
+# CLI
+clap = { version = "4", features = ["derive"] }
+
+# Template Engine
+tera = "1"
+
+# Markdown Parsing
+pulldown-cmark = "0.9"
+
+# Serialization
+serde = { version = "1", features = ["derive"] }
+serde_yaml = "0.9"
+serde_json = "1"
+toml = "0.8"
+
+# File System
+walkdir = "2"
+filetime = "0.2"
+
+# Regular expressions
+regex = "1"
+
+# Parallel Processing
+rayon = "1.10"
+
+# Async Runtime
+tokio = { version = "1", features = ["full"] }
+
+# Error Handling
+anyhow = "1"
+thiserror = "1"
+
+# Hashing (for incremental builds)
+sha2 = "0.10"
+
+# Logging
+tracing = "0.1"
+tracing-subscriber = "0.3"
+
+# Date/Time handling
+chrono = { version = "0.4", features = ["serde"] }
+
+# Random generation
+rand = "0.8"
+hex = "0.4"
+
+# File watching (for dev server)
+notify = "6"
+
+# HTTP Server (for dev)
+axum = "0.7"
+tower-http = { version = "0.5", features = ["fs"] }
+
+# Image Processing
+image = "0.25"
+
+# Minification
+minifier = "0.3"
+
+[profile.release]
+lto = true
+codegen-units = 1
+opt-level = 3

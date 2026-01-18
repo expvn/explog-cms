@@ -1,0 +1,177 @@
+/**
+ * Synthwave '84 Theme for Prism.js
+ * Based on: https://github.com/robbowen/synthwave-vscode
+ */
+
+/* Code block container */
+code[class*="language-"],
+pre[class*="language-"] {
+    color: #f8f8f2;
+    background: none;
+    font-family: 'Fira Code', 'Cascadia Code', 'JetBrains Mono', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-size: 0.95em;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.6;
+    tab-size: 4;
+    hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+    padding: 1.5rem;
+    margin: 0;
+    overflow: auto;
+    border-radius: 0.75rem;
+    /* Synthwave background */
+    background: linear-gradient(135deg, #262335 0%, #241b2f 100%);
+    border: 1px solid rgba(255, 126, 219, 0.3);
+    box-shadow:
+        0 0 30px rgba(255, 126, 219, 0.15),
+        0 0 60px rgba(52, 31, 113, 0.2),
+        inset 0 0 80px rgba(52, 31, 113, 0.3);
+}
+
+/* Inline code */
+:not(pre)>code[class*="language-"] {
+    padding: 0.2em 0.4em;
+    border-radius: 0.3em;
+    white-space: normal;
+    background: linear-gradient(135deg, #2d2640 0%, #262335 100%);
+    color: #ff7edb;
+    border: 1px solid rgba(255, 126, 219, 0.3);
+}
+
+/* Selection */
+pre[class*="language-"]::selection,
+pre[class*="language-"] ::selection,
+code[class*="language-"]::selection,
+code[class*="language-"] ::selection {
+    background: rgba(255, 126, 219, 0.3);
+}
+
+/* Token styles - Synthwave colors */
+
+/* Comments */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    color: #848bbd;
+    font-style: italic;
+}
+
+/* Punctuation */
+.token.punctuation {
+    color: #f8f8f2;
+}
+
+/* Namespace */
+.token.namespace {
+    opacity: 0.7;
+}
+
+/* Properties, Tags, Symbols, Constants */
+.token.property,
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted {
+    color: #ff7edb;
+    /* Neon Pink */
+}
+
+/* Boolean, Number */
+.token.boolean,
+.token.number {
+    color: #f78c6c;
+    /* Orange */
+}
+
+/* Selector, Attr-name, String, Char, Builtin, Inserted */
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+    color: #72f1b8;
+    /* Neon Green */
+}
+
+/* Operator, Entity, URL, .language-css .token.string, .style .token.string */
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+    color: #fede5d;
+    /* Neon Yellow */
+}
+
+/* At-rule, Attr-value, Keyword */
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+    color: #ff7edb;
+    /* Neon Pink */
+    text-shadow: 0 0 10px rgba(255, 126, 219, 0.5);
+}
+
+/* Function, Class-name */
+.token.function,
+.token.class-name {
+    color: #36f9f6;
+    /* Neon Cyan */
+    text-shadow: 0 0 10px rgba(54, 249, 246, 0.5);
+}
+
+/* Regex, Important, Variable */
+.token.regex,
+.token.important,
+.token.variable {
+    color: #fede5d;
+    /* Neon Yellow */
+    text-shadow: 0 0 10px rgba(254, 222, 93, 0.4);
+}
+
+/* Important, Bold */
+.token.important,
+.token.bold {
+    font-weight: bold;
+}
+
+/* Italic */
+.token.italic {
+    font-style: italic;
+}
+
+/* Entity */
+.token.entity {
+    cursor: help;
+}
+
+/* Line Numbers (optional plugin) */
+.line-numbers .line-numbers-rows {
+    border-right: 1px solid rgba(255, 126, 219, 0.2);
+}
+
+.line-numbers-rows>span:before {
+    color: #5a5680;
+}
+
+/* Glow effect for special tokens */
+.token.function {
+    text-shadow: 0 0 8px rgba(54, 249, 246, 0.6);
+}
+
+.token.keyword {
+    text-shadow: 0 0 8px rgba(255, 126, 219, 0.6);
+}
+
+.token.string {
+    text-shadow: 0 0 5px rgba(114, 241, 184, 0.4);
+}

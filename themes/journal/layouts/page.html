@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }} - {{ site.title }}{% endblock %}
+
+{% block head %}
+<style>
+    .page-header {
+        text-align: center;
+        padding: 48px 0;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 48px;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .page-title {
+        font-family: 'Noto Serif', serif;
+        font-size: 36px;
+        font-weight: 700;
+        color: var(--text-dark);
+    }
+
+    .page-content {
+        max-width: 720px;
+        margin: 0 auto;
+        padding-bottom: 80px;
+        font-size: 17px;
+        line-height: 1.85;
+        color: var(--text-body);
+    }
+
+    .page-content h2 {
+        font-family: 'Noto Serif', serif;
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin: 48px 0 20px;
+    }
+
+    .page-content h3 {
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--text-dark);
+        margin: 36px 0 16px;
+    }
+
+    .page-content p {
+        margin-bottom: 1.5em;
+    }
+
+    .page-content a {
+        color: var(--primary);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+    }
+
+    [data-theme="dark"] .page-content a {
+        color: var(--accent);
+    }
+
+    .page-content blockquote {
+        margin: 32px 0;
+        padding: 24px 32px;
+        border-left: 3px solid var(--accent);
+        background: var(--bg-surface);
+        font-style: italic;
+        font-family: 'Noto Serif', serif;
+    }
+
+    .page-content img {
+        border-radius: 8px;
+        margin: 32px 0;
+    }
+
+    @media (max-width: 768px) {
+        .page-title {
+            font-size: 28px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<article>
+    <div class="wrapper">
+        <header class="page-header">
+            <h1 class="page-title">{{ page.title }}</h1>
+        </header>
+
+        <div class="page-content">
+            {{ page.content | safe }}
+        </div>
+    </div>
+</article>
+{% endblock %}

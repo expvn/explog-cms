@@ -1,0 +1,248 @@
+/**
+ * Explog Markdown Base Styles
+ * Shared across all themes - can be overridden by individual themes
+ * Location: themes/shared/css/markdown-base.css
+ */
+
+/* ===========================================
+   CONTENT - BOLD & ITALIC EMPHASIS
+   =========================================== */
+
+/* Bold text - more prominent */
+strong,
+b {
+    font-weight: 700;
+    color: var(--color-text-emphasis, inherit);
+}
+
+/* Italic text - subtle color shift */
+em,
+i {
+    font-style: italic;
+    color: var(--color-text-italic, inherit);
+}
+
+/* Bold + Italic combined */
+strong em,
+em strong,
+b i,
+i b {
+    font-weight: 700;
+    font-style: italic;
+}
+
+/* Dark mode emphasis */
+:root {
+    --color-text-emphasis: #1a1a2e;
+    --color-text-italic: #4a5568;
+}
+
+[data-theme="dark"] {
+    --color-text-emphasis: #f1f5f9;
+    --color-text-italic: #cbd5e1;
+}
+
+/* ===========================================
+   IMAGES - CENTERED & RESPONSIVE
+   =========================================== */
+
+.image-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem auto;
+    width: 100%;
+}
+
+.image-center img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* ===========================================
+   VIDEO CONTAINER - FULL WIDTH
+   YouTube, Video embeds - responsive 16:9
+   =========================================== */
+
+.video-container {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    /* Full content width */
+    padding-bottom: 56.25%;
+    /* 16:9 aspect ratio */
+    margin: 2rem 0;
+    background: #000;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.video-container iframe,
+.video-container video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* ===========================================
+   CALLOUTS (Obsidian-style)
+   =========================================== */
+
+.callout {
+    margin: 1.5rem 0;
+    padding: 1rem 1.25rem;
+    border-radius: 8px;
+    border-left: 4px solid;
+    background: var(--callout-bg, rgba(0, 0, 0, 0.03));
+}
+
+.callout-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.callout-content {
+    line-height: 1.6;
+}
+
+/* Callout Types */
+.callout-note {
+    border-color: #3b82f6;
+    background: rgba(59, 130, 246, 0.08);
+}
+
+.callout-note .callout-title {
+    color: #3b82f6;
+}
+
+.callout-warning {
+    border-color: #f59e0b;
+    background: rgba(245, 158, 11, 0.08);
+}
+
+.callout-warning .callout-title {
+    color: #f59e0b;
+}
+
+.callout-tip {
+    border-color: #10b981;
+    background: rgba(16, 185, 129, 0.08);
+}
+
+.callout-tip .callout-title {
+    color: #10b981;
+}
+
+.callout-important {
+    border-color: #8b5cf6;
+    background: rgba(139, 92, 246, 0.08);
+}
+
+.callout-important .callout-title {
+    color: #8b5cf6;
+}
+
+.callout-caution {
+    border-color: #ef4444;
+    background: rgba(239, 68, 68, 0.08);
+}
+
+.callout-caution .callout-title {
+    color: #ef4444;
+}
+
+.callout-info {
+    border-color: #06b6d4;
+    background: rgba(6, 182, 212, 0.08);
+}
+
+.callout-info .callout-title {
+    color: #06b6d4;
+}
+
+/* ===========================================
+   INLINE CODE
+   =========================================== */
+
+code:not([class*="language-"]):not(pre code) {
+    background: rgba(0, 0, 0, 0.06);
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+    font-size: 0.9em;
+    color: #e83e8c;
+}
+
+[data-theme="dark"] code:not([class*="language-"]):not(pre code) {
+    background: rgba(255, 255, 255, 0.1);
+    color: #f8a5c2;
+}
+
+/* ===========================================
+   TASK LISTS / CHECKBOXES
+   =========================================== */
+
+ul.contains-task-list,
+ul.task-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+li.task-list-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 0.25rem 0;
+}
+
+li.task-list-item input[type="checkbox"] {
+    margin-top: 0.35rem;
+    width: 1.1rem;
+    height: 1.1rem;
+    cursor: pointer;
+    accent-color: var(--color-primary, #3b82f6);
+}
+
+/* ===========================================
+   DARK MODE OVERRIDES
+   =========================================== */
+
+[data-theme="dark"] .callout {
+    background: var(--callout-bg-dark, rgba(255, 255, 255, 0.05));
+}
+
+[data-theme="dark"] .callout-note {
+    background: rgba(59, 130, 246, 0.15);
+}
+
+[data-theme="dark"] .callout-warning {
+    background: rgba(245, 158, 11, 0.15);
+}
+
+[data-theme="dark"] .callout-tip {
+    background: rgba(16, 185, 129, 0.15);
+}
+
+[data-theme="dark"] .callout-important {
+    background: rgba(139, 92, 246, 0.15);
+}
+
+[data-theme="dark"] .callout-caution {
+    background: rgba(239, 68, 68, 0.15);
+}
+
+[data-theme="dark"] .callout-info {
+    background: rgba(6, 182, 212, 0.15);
+}
+
+[data-theme="dark"] .image-center img {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}

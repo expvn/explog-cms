@@ -1,0 +1,77 @@
+<!-- Recent Posts Widget -->
+<div class="sidebar-widget widget-recent-posts">
+    <h3 class="widget-title">Recent Posts</h3>
+    <ul class="recent-posts-list">
+        {% for post in posts | slice(end=5) %}
+        <li class="recent-post-item">
+            <a href="{{ post.url }}">
+                {% if post.cover %}
+                <img src="{{ post.cover }}" alt="{{ post.title }}" class="recent-post-thumb" loading="lazy">
+                {% endif %}
+                <div class="recent-post-info">
+                    <span class="recent-post-title">{{ post.title }}</span>
+                    <span class="recent-post-date">{{ post.date  }}</span>
+                </div>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<style>
+    .recent-posts-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .recent-post-item {
+        margin-bottom: var(--space-4);
+    }
+
+    .recent-post-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .recent-post-item a {
+        display: flex;
+        gap: var(--space-3);
+        text-decoration: none;
+    }
+
+    .recent-post-thumb {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: var(--radius-md);
+        flex-shrink: 0;
+    }
+
+    .recent-post-info {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-1);
+    }
+
+    .recent-post-title {
+        font-size: var(--text-sm);
+        font-weight: 500;
+        color: var(--color-text);
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        transition: color 0.2s;
+    }
+
+    .recent-post-item a:hover .recent-post-title {
+        color: var(--color-primary);
+    }
+
+    .recent-post-date {
+        font-size: var(--text-xs);
+        color: var(--color-text-muted);
+    }
+</style>
+
+

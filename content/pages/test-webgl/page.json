@@ -1,0 +1,11 @@
+{
+    "title": "Space Survival 1",
+    "type": "html",
+    "mode": "embedded",
+    "description": "Game sinh tồn không gian",
+    "embed": {
+        "src": "index.html",
+        "width": "960px",
+        "height": "650px"
+    }
+}

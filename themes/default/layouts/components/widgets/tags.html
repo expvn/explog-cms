@@ -1,0 +1,39 @@
+<!-- Tags Widget -->
+<div class="sidebar-widget widget-tags">
+    <h3 class="widget-title">Tags</h3>
+    <div class="tag-cloud">
+        {% for tag in tags %}
+        <a href="{{ tag.url }}" class="tag-item">
+            {{ tag.name }}
+        </a>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .tag-cloud {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-2);
+    }
+
+    .tag-item {
+        display: inline-block;
+        padding: var(--space-1) var(--space-3);
+        background: var(--color-bg-secondary);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-full);
+        font-size: var(--text-sm);
+        color: var(--color-text-secondary);
+        transition: all 0.2s;
+    }
+
+    .tag-item:hover {
+        background: var(--color-primary);
+        border-color: var(--color-primary);
+        color: white;
+        text-decoration: none;
+    }
+</style>
+
+

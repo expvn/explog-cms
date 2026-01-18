@@ -1,0 +1,200 @@
+{% extends "base.html" %}
+
+{% block title %}{{ category }} - {{ site.title }}{% endblock %}
+
+{% block head %}
+<style>
+    .category-header {
+        padding: 48px 0;
+        text-align: center;
+        background: var(--color-bg-secondary);
+        margin-bottom: 48px;
+    }
+
+    .category-label {
+        color: var(--color-primary);
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+    .category-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .category-count {
+        color: var(--color-text-secondary);
+    }
+
+    .posts-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 24px;
+    }
+
+    .post-card {
+        display: flex;
+        flex-direction: column;
+        background: var(--color-bg);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .post-card:hover {
+        box-shadow: var(--shadow-lg);
+        transform: translateY(-4px);
+    }
+
+    .post-card-image {
+        display: block;
+        width: 100%;
+        height: 180px;
+        overflow: hidden;
+        background: var(--color-bg-secondary);
+        flex-shrink: 0;
+    }
+
+    .post-card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s;
+    }
+
+    .post-card:hover .post-card-image img {
+        transform: scale(1.05);
+    }
+
+    .post-card-body {
+        padding: 20px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .post-card-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+    }
+
+    .post-card-category {
+        display: inline-block;
+        padding: 4px 10px;
+        background: var(--color-primary);
+        color: white;
+        font-size: 0.75rem;
+        font-weight: 600;
+        border-radius: 50px;
+    }
+
+    .post-card-date {
+        font-size: 0.75rem;
+        color: var(--color-text-muted);
+    }
+
+    .post-card-title {
+        font-size: 1.125rem;
+        font-weight: 600;
+        line-height: 1.4;
+        margin-bottom: 12px;
+    }
+
+    .post-card-title a {
+        color: var(--color-text);
+    }
+
+    .post-card-title a:hover {
+        color: var(--color-primary);
+    }
+
+    .post-card-excerpt {
+        font-size: 0.875rem;
+        color: var(--color-text-secondary);
+        line-height: 1.6;
+        flex: 1;
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 48px;
+    }
+
+    .pagination a,
+    .pagination span {
+        padding: 10px 16px;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+        font-weight: 500;
+    }
+
+    .pagination a:hover {
+        background: var(--color-bg-secondary);
+    }
+
+    .pagination .current {
+        background: var(--color-primary);
+        color: white;
+        border-color: var(--color-primary);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<header class="category-header">
+    <div class="container">
+        <div class="category-label">Chuyên mục</div>
+        <h1 class="category-title">{{ category }}</h1>
+        <p class="category-count">{{ posts | length }} bài viết</p>
+    </div>
+</header>
+
+<div class="container">
+    <div class="posts-grid">
+        {% for post in posts %}
+        <article class="post-card">
+            <a href="{{ post.url }}" class="post-card-image">
+                {% if post.cover %}
+                <img src="{{ post.cover }}" alt="{{ post.title }}" loading="lazy">
+                {% else %}
+                <div style="width:100%;height:100%;background:linear-gradient(135deg, #a8edea, #fed6e3);"></div>
+                {% endif %}
+            </a>
+            <div class="post-card-body">
+                <div class="post-card-meta">
+                    {% if post.categories | length > 0 %}
+                    <span class="post-card-category">{{ post.categories | first }}</span>
+                    {% else %}
+                    <span></span>
+                    {% endif %}
+                    <span class="post-card-date">{{ post.date }} 📅</span>
+                </div>
+                <h3 class="post-card-title">
+                    <a href="{{ post.url }}">{{ post.title }}</a>
+                </h3>
+                <p class="post-card-excerpt">{{ post.summary | default(value='Xem thêm...') | truncate(length=120) }}
+                </p>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+
+    {% if pagination is defined and pagination.total_pages is defined and pagination.total_pages > 1 %}
+    <nav class="pagination">
+        {% if pagination.has_prev and pagination.prev_url %}
+        <a href="{{ pagination.prev_url }}">← Trước</a>
+        {% endif %}
+        <span class="current">{{ pagination.current_page }} / {{ pagination.total_pages }}</span>
+        {% if pagination.has_next and pagination.next_url %}
+        <a href="{{ pagination.next_url }}">Sau →</a>
+        {% endif %}
+    </nav>
+    {% endif %}
+</div>
+{% endblock %}

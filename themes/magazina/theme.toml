@@ -1,0 +1,24 @@
+[theme]
+name = "magazina"
+version = "1.0.0"
+description = "A minimalist magazine theme inspired by 'The Journal'."
+author = "Antigravity"
+
+[layout.home]
+sections = ["hero", "latest_grid", "newsletter"]
+sidebar = false
+widgets = []
+
+[layout.post]
+sections = ["header", "content", "navigation"]
+sidebar = false
+widgets = []
+
+[settings]
+posts_per_page = 9
+related_posts_count = 3
+show_reading_time = true
+show_author = true
+show_date = true
+show_categories = true
+show_tags = true

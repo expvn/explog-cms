@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }} - {{ site.title }}{% endblock %}
+
+{% block head %}
+<style>
+    .embed-page {
+        padding: 48px 0;
+    }
+
+    .embed-header {
+        text-align: center;
+        margin-bottom: 32px;
+    }
+
+    .embed-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 12px;
+    }
+
+    .embed-description {
+        color: var(--color-text-secondary);
+        font-size: 1.1rem;
+    }
+
+    .embed-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .embed-container iframe {
+        border: none;
+        border-radius: var(--radius-lg);
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+        max-width: 100%;
+    }
+
+    @media (max-width: 768px) {
+        .embed-container iframe {
+            width: 100% !important;
+            height: auto !important;
+            aspect-ratio: 16/10;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <section class="embed-page">
+        <header class="embed-header">
+            <h1 class="embed-title">{{ page.title }}</h1>
+            {% if page.description %}
+            <p class="embed-description">{{ page.description }}</p>
+            {% endif %}
+        </header>
+
+        <div class="embed-container">
+            {% if page.embed %}
+            <iframe src="embed/{{ page.embed.src | default(value='index.html') }}"
+                width="{{ page.embed.width | default(value='960') }}"
+                height="{{ page.embed.height | default(value='600') }}" allowfullscreen>
+            </iframe>
+            {% else %}
+            {{ page.content | safe }}
+            {% endif %}
+        </div>
+    </section>
+</div>
+{% endblock %}

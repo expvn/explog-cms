@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="customize-page">
+    <div class="container">
+        <header class="customize-header">
+            <h1>{{ page.title }}</h1>
+            {% if page.description %}
+            <p class="customize-description">{{ page.description }}</p>
+            {% endif %}
+        </header>
+
+        {% if items %}
+        <div class="gallery-grid">
+            {% for item in items %}
+            <a href="{{ item.url }}" class="gallery-item">
+                <div class="gallery-item__image">
+                    <img src="/{{ page.slug }}/{{ item.cover | split(pat='/') | last }}" alt="{{ item.title }}"
+                        loading="lazy">
+                </div>
+                <div class="gallery-item__content">
+                    <h3 class="gallery-item__title">{{ item.title }}</h3>
+                    <p class="gallery-item__desc">{{ item.description }}</p>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="customize-empty">
+            {{ content | safe }}
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<style>
+    .customize-page {
+        padding: 80px 0;
+    }
+
+    .customize-header {
+        margin-bottom: 60px;
+    }
+
+    .customize-header h1 {
+        font-family: var(--font-display, 'Space Grotesk', sans-serif);
+        font-size: 3rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: -0.02em;
+        margin-bottom: 16px;
+    }
+
+    .customize-description {
+        font-size: 1.1rem;
+        color: var(--text-muted, #666);
+        max-width: 600px;
+    }
+
+    .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 24px;
+    }
+
+    .gallery-item {
+        display: block;
+        border: 2px solid var(--border-strong, #000);
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.2s;
+    }
+
+    .gallery-item:hover {
+        background: var(--bg-accent, #000);
+        color: var(--text-inverse, #fff);
+    }
+
+    .gallery-item__image {
+        aspect-ratio: 16/9;
+        overflow: hidden;
+        border-bottom: 2px solid var(--border-strong, #000);
+    }
+
+    .gallery-item__image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .gallery-item__content {
+        padding: 20px;
+    }
+
+    .gallery-item__title {
+        font-family: var(--font-display, 'Space Grotesk', sans-serif);
+        font-size: 1.2rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+    }
+
+    .gallery-item__desc {
+        font-size: 0.9rem;
+        opacity: 0.8;
+        line-height: 1.4;
+    }
+</style>
+{% endblock %}

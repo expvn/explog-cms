@@ -1,0 +1,37 @@
+# Theme Configuration
+
+[theme]
+name = "minimal"
+version = "1.0.0"
+description = "Minimal theme with light/dark mode toggle and beautiful typography"
+author = "Explog Team"
+extends = ""
+
+[layout.home]
+sections = ["hero", "posts"]
+sidebar = false
+widgets = []
+
+[layout.post]
+sections = ["header", "content", "navigation", "related"]
+sidebar = false
+widgets = []
+
+[layout.category]
+sections = ["header", "posts"]
+sidebar = false
+widgets = []
+
+[layout.tag]
+sections = ["header", "posts"]
+sidebar = false
+widgets = []
+
+[settings]
+posts_per_page = 12
+related_posts_count = 3
+show_reading_time = true
+show_author = true
+show_date = true
+show_categories = true
+show_tags = true

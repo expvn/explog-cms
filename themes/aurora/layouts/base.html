@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="{{ site.language | default(value='vi') }}" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ site.title }}{% endblock %}</title>
+    <meta name="description" content="{{ site.description | default(value='') }}">
+
+    <!-- Outfit + Source Sans 3 - Bold, readable Unicode fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+
+    <style>
+        /* ===== Aurora Theme - Glassmorphism Style ===== */
+        :root {
+            /* Light Mode */
+            --bg-primary: #f8f9ff;
+            --bg-secondary: #eef1ff;
+            --bg-card: #ffffff;
+            --text-primary: #1a1a2e;
+            --text-secondary: #4a4a6a;
+            --text-muted: #8a8aaa;
+            --border-color: #e0e4f0;
+            --accent-color: #7c3aed;
+            --accent-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --shadow-sm: 0 2px 8px rgba(102, 126, 234, 0.1);
+            --shadow-card: 0 4px 20px rgba(102, 126, 234, 0.12);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0d0d18;
+            --bg-secondary: #16162a;
+            --bg-card: #1c1c32;
+            --text-primary: #e8e8f0;
+            --text-secondary: #a8a8c8;
+            --text-muted: #68688a;
+            --border-color: #2a2a45;
+            --accent-color: #a78bfa;
+            --accent-gradient: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+            --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ===== Base Styles ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 16px;
+            line-height: 1.7;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            transition: background 0.4s ease, color 0.4s ease;
+        }
+
+        /* Simple clean background */
+
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        a:hover {
+            color: var(--text-primary);
+        }
+
+        /* External link styling */
+        .post-content a[href^="http"]:not([href*="{{ site.url | default(value='') }}"])::after,
+        .page-content a[href^="http"]::after {
+            content: " ↗";
+            font-size: 0.8em;
+            vertical-align: super;
+        }
+
+        .post-content a,
+        .page-content a {
+            font-weight: 600;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* ===== Container ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .container--narrow {
+            max-width: 800px;
+        }
+
+        /* ===== Header - Solid background for performance ===== */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border-color);
+            transition: background 0.3s ease;
+        }
+
+        .header__inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+
+        .header__logo {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header__nav {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-item>a {
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-item>a:hover {
+            color: var(--accent-color);
+        }
+
+        .nav-dropdown {
+            position: absolute;
+            top: 100%;
+            left: -16px;
+            min-width: 200px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: var(--shadow-glass);
+            padding: 12px 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-item:hover .nav-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .nav-dropdown a {
+            display: block;
+            padding: 10px 20px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .nav-dropdown a:hover {
+            background: var(--accent-gradient);
+            color: white;
+        }
+
+        /* Theme Toggle - Artistic */
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border: none;
+            background: var(--accent-gradient);
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            box-shadow: var(--shadow-card);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1) rotate(15deg);
+            box-shadow: 0 6px 20px rgba(124, 58, 237, 0.4);
+        }
+
+        /* Search Button */
+        .search-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.2s;
+        }
+
+        .search-btn:hover {
+            background: var(--accent-gradient);
+            border-color: transparent;
+        }
+
+        /* ===== Search Modal ===== */
+        .search-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            z-index: 9999;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 15vh;
+        }
+
+        .search-modal.active {
+            display: flex;
+        }
+
+        .search-modal__container {
+            width: 90%;
+            max-width: 600px;
+            background: var(--bg-card);
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-height: 70vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .search-modal__header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .search-modal__input {
+            flex: 1;
+            padding: 12px 16px;
+            font-size: 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            outline: none;
+        }
+
+        .search-modal__input:focus {
+            border-color: var(--accent-color);
+        }
+
+        .search-modal__close {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-size: 24px;
+            color: var(--text-secondary);
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+
+        .search-modal__close:hover {
+            background: var(--border-color);
+        }
+
+        .search-modal__results {
+            flex: 1;
+            overflow-y: auto;
+            padding: 12px;
+        }
+
+        .search-modal__item {
+            display: block;
+            padding: 16px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .search-modal__item:hover {
+            background: var(--bg-secondary);
+        }
+
+        .search-modal__item-title {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .search-modal__item-meta {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .search-modal__empty {
+            padding: 40px 20px;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            margin-top: 100px;
+            padding: 60px 0;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer__inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer__copy {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer__links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer__links a {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .footer__links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* ===== Mobile Responsive ===== */
+        @media (max-width: 768px) {
+            .header__nav {
+                gap: 12px;
+            }
+
+            .footer__inner {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+    </style>
+    {% block head %}{% endblock %}
+    <!-- Shared Markdown Styles -->
+    <link rel="stylesheet" href="/assets/css/markdown-base.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="container header__inner">
+            <a href="/" class="header__logo">{{ site.title }}</a>
+
+            <nav class="header__nav">
+                {% for item in site.navigation %}
+                {% if item.children | length > 0 %}
+                <div class="nav-item">
+                    <a href="{{ item.url }}">{{ item.label }} ▾</a>
+                    <div class="nav-dropdown">
+                        {% for child in item.children %}
+                        <a href="{{ child.url }}">{{ child.label }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% else %}
+                <div class="nav-item">
+                    <a href="{{ item.url }}">{{ item.label }}</a>
+                </div>
+                {% endif %}
+                {% endfor %}
+
+                <!-- Search Button -->
+                <button class="search-btn" id="searchBtn" aria-label="Tìm kiếm">
+                    🔍
+                </button>
+
+                <!-- Theme Toggle -->
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    🌙
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="container footer__inner">
+            <div class="footer__copy">
+                © 2024 {{ site.title }}. Crafted with ✨ Aurora Theme.
+            </div>
+            <div class="footer__links">
+                <a href="/about/">About</a>
+                <a href="/contact/">Contact</a>
+                <a href="/rss.xml">RSS</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Search Modal -->
+    <div class="search-modal" id="searchModal">
+        <div class="search-modal__container">
+            <div class="search-modal__header">
+                <input type="text" class="search-modal__input" id="searchInput" placeholder="Tìm kiếm bài viết..."
+                    autofocus>
+                <button class="search-modal__close" id="searchClose">×</button>
+            </div>
+            <div class="search-modal__results" id="searchResults">
+                <div class="search-modal__empty">Nhập từ khóa để tìm kiếm...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Theme Toggle Script -->
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+
+        const savedTheme = localStorage.getItem('theme');
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme) {
+            html.setAttribute('data-theme', savedTheme);
+        } else if (systemDark) {
+            html.setAttribute('data-theme', 'dark');
+        }
+
+        function updateIcon() {
+            const isDark = html.getAttribute('data-theme') === 'dark';
+            themeToggle.textContent = isDark ? '☀️' : '🌙';
+        }
+        updateIcon();
+
+        themeToggle.addEventListener('click', () => {
+            const current = html.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+            updateIcon();
+        });
+
+        // Search Modal
+        const searchBtn = document.getElementById('searchBtn');
+        const searchModal = document.getElementById('searchModal');
+        const searchInput = document.getElementById('searchInput');
+        const searchClose = document.getElementById('searchClose');
+        const searchResults = document.getElementById('searchResults');
+        let searchData = null;
+
+        searchBtn.addEventListener('click', async () => {
+            searchModal.classList.add('active');
+            searchInput.value = '';
+            searchInput.focus();
+            if (!searchData) {
+                try {
+                    const res = await fetch('/api/search/index.json');
+                    searchData = await res.json();
+                } catch (e) {
+                    searchResults.innerHTML = '<div class="search-modal__empty">Không thể tải dữ liệu tìm kiếm</div>';
+                }
+            }
+            searchResults.innerHTML = '<div class="search-modal__empty">Nhập từ khóa để tìm kiếm...</div>';
+        });
+
+        searchClose.addEventListener('click', () => searchModal.classList.remove('active'));
+        searchModal.addEventListener('click', (e) => {
+            if (e.target === searchModal) searchModal.classList.remove('active');
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') searchModal.classList.remove('active');
+        });
+
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.toLowerCase().trim();
+            if (!query || !searchData) {
+                searchResults.innerHTML = '<div class="search-modal__empty">Nhập từ khóa để tìm kiếm...</div>';
+                return;
+            }
+            const results = searchData.items.filter(item =>
+                item.title.toLowerCase().includes(query) ||
+                (item.summary && item.summary.toLowerCase().includes(query)) ||
+                (item.tags && item.tags.some(t => t.toLowerCase().includes(query)))
+            ).slice(0, 10);
+            if (results.length === 0) {
+                searchResults.innerHTML = '<div class="search-modal__empty">Không tìm thấy kết quả</div>';
+                return;
+            }
+            searchResults.innerHTML = results.map(item => `
+                <a href="${item.url}" class="search-modal__item">
+                    <div class="search-modal__item-title">${item.title}</div>
+                    <div class="search-modal__item-meta">${item.date} • ${item.categories.join(', ')}</div>
+                </a>
+            `).join('');
+        });
+    </script>
+
+    {% block scripts %}{% endblock %}
+</body>
+
+</html>

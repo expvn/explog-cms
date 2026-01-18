@@ -1,0 +1,88 @@
+<!-- Pagination Component -->
+{% if pagination is defined and pagination.total_pages is defined and pagination.total_pages > 1 %}
+<nav class="pagination" aria-label="Pagination">
+    <div class="pagination-info">
+        Page {{ pagination.current_page }} of {{ pagination.total_pages }}
+    </div>
+
+    <div class="pagination-links">
+        {% if pagination.has_prev and pagination.prev_url %}
+        <a href="{{ pagination.prev_url }}" class="pagination-link prev" rel="prev">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+            Previous
+        </a>
+        {% else %}
+        <span class="pagination-link prev disabled">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+            Previous
+        </span>
+        {% endif %}
+
+        {% if pagination.has_next and pagination.next_url %}
+        <a href="{{ pagination.next_url }}" class="pagination-link next" rel="next">
+            Next
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+        </a>
+        {% else %}
+        <span class="pagination-link next disabled">
+            Next
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+        </span>
+        {% endif %}
+    </div>
+</nav>
+{% endif %}
+
+<style>
+    .pagination {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-4);
+        margin: var(--space-12) 0;
+    }
+
+    .pagination-info {
+        font-size: var(--text-sm);
+        color: var(--color-text-muted);
+    }
+
+    .pagination-links {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+    }
+
+    .pagination-link {
+        display: flex;
+        align-items: center;
+        gap: var(--space-1);
+        padding: var(--space-2) var(--space-4);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+        font-size: var(--text-sm);
+        font-weight: 500;
+        color: var(--color-text);
+        background: var(--color-bg);
+        transition: all 0.2s;
+    }
+
+    .pagination-link:hover:not(.disabled) {
+        border-color: var(--color-primary);
+        color: var(--color-primary);
+        text-decoration: none;
+    }
+
+    .pagination-link.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+</style>

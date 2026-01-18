@@ -1,0 +1,211 @@
+{% extends "base.html" %}
+
+{% block title %}{{ site.title }} - Trang chủ{% endblock %}
+
+{% block head %}
+<style>
+    /* Hero Section */
+    .hero {
+        padding: 80px 0;
+        text-align: center;
+    }
+
+    .hero__title {
+        font-family: 'Noto Serif', Georgia, serif;
+        font-size: 3rem;
+        font-weight: 600;
+        margin-bottom: 16px;
+        color: var(--text-primary);
+    }
+
+    .hero__desc {
+        font-size: 1.25rem;
+        color: var(--text-secondary);
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    /* Posts Grid */
+    .posts {
+        padding: 40px 0 80px;
+    }
+
+    .posts__title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 32px;
+        padding-bottom: 16px;
+        border-bottom: 2px solid var(--border-color);
+    }
+
+    .posts__grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 32px;
+    }
+
+    /* Post Card */
+    .card {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        overflow: hidden;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .card__image {
+        display: block;
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        background: var(--bg-tertiary);
+    }
+
+    .card__body {
+        padding: 20px;
+    }
+
+    .card__meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        font-size: 0.8rem;
+    }
+
+    .card__category {
+        background: var(--accent-color);
+        color: white;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-weight: 500;
+    }
+
+    .card__date {
+        color: var(--text-muted);
+    }
+
+    .card__title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        line-height: 1.4;
+        margin-bottom: 8px;
+    }
+
+    .card__title a {
+        color: var(--text-primary);
+    }
+
+    .card__title a:hover {
+        color: var(--accent-color);
+    }
+
+    .card__excerpt {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        line-height: 1.6;
+    }
+
+    /* Pagination */
+    .pagination {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 48px;
+    }
+
+    .pagination a,
+    .pagination span {
+        padding: 10px 18px;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        font-weight: 500;
+        color: var(--text-secondary);
+    }
+
+    .pagination a:hover {
+        background: var(--bg-tertiary);
+        color: var(--text-primary);
+    }
+
+    .pagination .current {
+        background: var(--accent-color);
+        color: white;
+        border-color: var(--accent-color);
+    }
+
+    @media (max-width: 768px) {
+        .hero__title {
+            font-size: 2rem;
+        }
+
+        .posts__grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="hero">
+    <div class="container">
+        <h1 class="hero__title">{{ site.title }}</h1>
+        <p class="hero__desc">{{ site.description | default(value='Khám phá những bài viết hay và hữu ích') }}</p>
+    </div>
+</section>
+
+<!-- Posts -->
+<section class="posts">
+    <div class="container">
+        <h2 class="posts__title">Bài viết mới nhất</h2>
+
+        <div class="posts__grid">
+            {% for post in posts %}
+            <article class="card">
+                <a href="{{ post.url }}">
+                    {% if post.cover %}
+                    <img src="{{ post.cover }}" alt="{{ post.title }}" class="card__image" loading="lazy">
+                    {% else %}
+                    <div class="card__image" style="background: linear-gradient(135deg, var(--accent-color), #764ba2);">
+                    </div>
+                    {% endif %}
+                </a>
+                <div class="card__body">
+                    <div class="card__meta">
+                        {% if post.categories | length > 0 %}
+                        <span class="card__category">{{ post.categories | first }}</span>
+                        {% else %}
+                        <span></span>
+                        {% endif %}
+                        <span class="card__date">{{ post.date }} 📅</span>
+                    </div>
+                    <h3 class="card__title">
+                        <a href="{{ post.url }}">{{ post.title }}</a>
+                    </h3>
+                    <p class="card__excerpt">{{ post.summary | default(value='') | truncate(length=100) }}</p>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if pagination is defined and pagination.total_pages is defined and pagination.total_pages > 1 %}
+        <nav class="pagination">
+            {% if pagination.has_prev and pagination.prev_url %}
+            <a href="{{ pagination.prev_url }}">← Trước</a>
+            {% endif %}
+            <span class="current">{{ pagination.current_page }} / {{ pagination.total_pages }}</span>
+            {% if pagination.has_next and pagination.next_url %}
+            <a href="{{ pagination.next_url }}">Sau →</a>
+            {% endif %}
+        </nav>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="customize-page">
+    <div class="container">
+        <header class="customize-header">
+            <h1>{{ page.title }}</h1>
+            {% if page.description %}
+            <p class="customize-description">{{ page.description }}</p>
+            {% endif %}
+        </header>
+
+        {% if items %}
+        <div class="gallery-grid">
+            {% for item in items %}
+            <a href="{{ item.url }}" class="gallery-item">
+                <div class="gallery-item__image">
+                    <img src="/{{ page.slug }}/{{ item.cover | split(pat='/') | last }}" alt="{{ item.title }}"
+                        loading="lazy">
+                </div>
+                <div class="gallery-item__content">
+                    <h3 class="gallery-item__title">{{ item.title }}</h3>
+                    <p class="gallery-item__desc">{{ item.description }}</p>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="customize-empty">
+            {{ content | safe }}
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<style>
+    .customize-page {
+        padding: 80px 0;
+    }
+
+    .customize-header {
+        text-align: center;
+        margin-bottom: 60px;
+    }
+
+    .customize-header h1 {
+        font-family: var(--font-display, 'Space Grotesk', sans-serif);
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 16px;
+        background: var(--gradient-primary, linear-gradient(135deg, #f472b6, #a855f7, #3b82f6));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .customize-description {
+        font-size: 1.2rem;
+        color: var(--text-muted, #94a3b8);
+    }
+
+    .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 32px;
+    }
+
+    .gallery-item {
+        display: block;
+        background: var(--bg-card, rgba(255, 255, 255, 0.05));
+        border-radius: 20px;
+        overflow: hidden;
+        text-decoration: none;
+        color: inherit;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .gallery-item:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 20px 50px rgba(168, 85, 247, 0.2);
+    }
+
+    .gallery-item__image {
+        aspect-ratio: 16/9;
+        overflow: hidden;
+    }
+
+    .gallery-item__image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+    }
+
+    .gallery-item:hover .gallery-item__image img {
+        transform: scale(1.1);
+    }
+
+    .gallery-item__content {
+        padding: 24px;
+    }
+
+    .gallery-item__title {
+        font-family: var(--font-display, 'Space Grotesk', sans-serif);
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+    .gallery-item__desc {
+        font-size: 0.95rem;
+        color: var(--text-muted, #94a3b8);
+        line-height: 1.5;
+    }
+</style>
+{% endblock %}

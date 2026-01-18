@@ -1,0 +1,49 @@
+# Theme Configuration
+# This file defines theme metadata and layout configurations
+
+[theme]
+name = "default"
+version = "1.0.0"
+description = "Default theme for Explog CMS"
+author = "Explog Team"
+extends = ""  # Parent theme to inherit from
+
+# Layout configurations for different page types
+[layout.home]
+sections = ["hero", "featured_posts", "recent_posts"]
+sidebar = true
+widgets = ["search", "categories", "tags", "recent_posts"]
+
+[layout.post]
+sections = ["header", "content", "author", "related_posts", "navigation"]
+sidebar = true
+widgets = ["search", "categories", "tags"]
+
+[layout.page]
+sections = ["header", "content"]
+sidebar = false
+widgets = []
+
+[layout.category]
+sections = ["header", "post_list"]
+sidebar = true
+widgets = ["search", "categories", "tags"]
+
+[layout.tag]
+sections = ["header", "post_list"]
+sidebar = true
+widgets = ["search", "tags"]
+
+# Default widget configuration for sidebar
+[widgets]
+default = ["search", "categories", "tags", "recent_posts"]
+
+# Theme-specific settings
+[settings]
+posts_per_page = 12
+related_posts_count = 4
+show_reading_time = true
+show_author = true
+show_date = true
+show_categories = true
+show_tags = true

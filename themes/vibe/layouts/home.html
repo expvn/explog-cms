@@ -1,0 +1,510 @@
+{% extends "base.html" %}
+
+{% block title %}{{ site.title }} - Trang chủ{% endblock %}
+
+{% block head %}
+<style>
+    /* ===== Featured Hero ===== */
+    .hero {
+        position: relative;
+        margin: 32px 0 48px;
+        border-radius: 24px;
+        overflow: hidden;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow);
+    }
+
+    .hero-inner {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    @media (min-width: 1024px) {
+        .hero-inner {
+            grid-template-columns: 1.2fr 1fr;
+        }
+    }
+
+    .hero-image {
+        position: relative;
+        height: 280px;
+        overflow: hidden;
+    }
+
+    @media (min-width: 1024px) {
+        .hero-image {
+            height: 420px;
+        }
+    }
+
+    .hero-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+    }
+
+    .hero:hover .hero-image img {
+        transform: scale(1.05);
+    }
+
+    .hero-image-placeholder {
+        width: 100%;
+        height: 100%;
+        background: var(--gradient);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 64px;
+        font-weight: 800;
+    }
+
+    .hero-badge {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        padding: 6px 14px;
+        background: var(--secondary);
+        color: white;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        border-radius: 20px;
+    }
+
+    .hero-content {
+        padding: 32px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    @media (min-width: 1024px) {
+        .hero-content {
+            padding: 48px;
+        }
+    }
+
+    .hero-category {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 14px;
+        background: rgba(99, 102, 241, 0.1);
+        color: var(--primary);
+        font-size: 12px;
+        font-weight: 600;
+        border-radius: 20px;
+        margin-bottom: 16px;
+        width: fit-content;
+    }
+
+    .hero-title {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 28px;
+        font-weight: 700;
+        line-height: 1.2;
+        color: var(--text-dark);
+        margin-bottom: 16px;
+    }
+
+    @media (min-width: 768px) {
+        .hero-title {
+            font-size: 36px;
+        }
+    }
+
+    .hero-excerpt {
+        font-size: 15px;
+        line-height: 1.7;
+        color: var(--text-body);
+        margin-bottom: 24px;
+    }
+
+    .hero-meta {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        font-size: 13px;
+        color: var(--text-muted);
+        margin-bottom: 24px;
+    }
+
+    .hero-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 14px 28px;
+        background: var(--gradient);
+        color: white;
+        font-size: 14px;
+        font-weight: 600;
+        border-radius: 12px;
+        transition: all 0.3s;
+        width: fit-content;
+    }
+
+    .hero-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+    }
+
+    /* ===== Section Header ===== */
+    .section-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 24px;
+    }
+
+    .section-title {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--text-dark);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .section-title::before {
+        content: '';
+        width: 4px;
+        height: 24px;
+        background: var(--gradient);
+        border-radius: 2px;
+    }
+
+    .section-more {
+        padding: 8px 16px;
+        background: transparent;
+        border: 1px solid var(--border);
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-body);
+        border-radius: 8px;
+        transition: all 0.2s;
+    }
+
+    .section-more:hover {
+        background: var(--primary);
+        border-color: var(--primary);
+        color: white;
+    }
+
+    /* ===== Card Grid ===== */
+    .card-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 24px;
+        margin-bottom: 48px;
+    }
+
+    @media (min-width: 640px) {
+        .card-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .card-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    /* ===== Vibe Card - Playful & Modern ===== */
+    .vibe-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow);
+    }
+
+    .vibe-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-hover);
+    }
+
+    .vibe-card-image {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .vibe-card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .vibe-card:hover .vibe-card-image img {
+        transform: scale(1.1);
+    }
+
+    .vibe-card-image-placeholder {
+        width: 100%;
+        height: 100%;
+        background: var(--gradient);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 48px;
+        font-weight: 800;
+    }
+
+    .vibe-card-category {
+        position: absolute;
+        top: 16px;
+        left: 16px;
+        padding: 6px 12px;
+        background: rgba(255, 255, 255, 0.95);
+        color: var(--primary);
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        border-radius: 20px;
+        backdrop-filter: blur(4px);
+    }
+
+    [data-theme="dark"] .vibe-card-category {
+        background: rgba(30, 41, 59, 0.9);
+    }
+
+    .vibe-card-body {
+        padding: 20px;
+    }
+
+    .vibe-card-title {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 1.4;
+        color: var(--text-dark);
+        margin-bottom: 12px;
+        transition: color 0.2s;
+    }
+
+    .vibe-card:hover .vibe-card-title {
+        color: var(--primary);
+    }
+
+    .vibe-card-excerpt {
+        font-size: 14px;
+        line-height: 1.6;
+        color: var(--text-muted);
+        margin-bottom: 16px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .vibe-card-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 16px;
+        border-top: 1px solid var(--border);
+    }
+
+    .vibe-card-author {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .vibe-card-avatar {
+        width: 32px;
+        height: 32px;
+        background: var(--gradient);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    .vibe-card-author-name {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-dark);
+    }
+
+    .vibe-card-date {
+        font-size: 12px;
+        color: var(--text-muted);
+    }
+
+    .vibe-card-reading {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        color: var(--text-muted);
+        padding: 6px 12px;
+        background: rgba(99, 102, 241, 0.1);
+        border-radius: 20px;
+    }
+
+    /* ===== Pagination ===== */
+    .pagination {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin: 48px 0;
+    }
+
+    .pagination a,
+    .pagination span {
+        padding: 12px 20px;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        font-size: 14px;
+        font-weight: 600;
+        border-radius: 12px;
+        transition: all 0.2s;
+    }
+
+    .pagination a:hover,
+    .pagination .current {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Hero -->
+    {% if posts | length > 0 %}
+    {% set featured = posts | first %}
+    <section class="hero">
+        <div class="hero-inner">
+            <a href="{{ featured.url }}" class="hero-image">
+                {% if featured.cover %}
+                <img src="{{ featured.cover }}" alt="{{ featured.title }}">
+                {% else %}
+                <div class="hero-image-placeholder">V</div>
+                {% endif %}
+                <span class="hero-badge">🔥 Hot</span>
+            </a>
+            <div class="hero-content">
+                {% if featured.categories | length > 0 %}
+                <span class="hero-category">✨ {{ featured.categories | first }}</span>
+                {% endif %}
+                <h1 class="hero-title">{{ featured.title }}</h1>
+                <p class="hero-excerpt">{{ featured.summary | default(value='') | truncate(length=140) }}</p>
+                <div class="hero-meta">
+                    <span>📅 {{ featured.date }}</span>
+                    <span>⏱️ 5 phút đọc</span>
+                </div>
+                <a href="{{ featured.url }}" class="hero-btn">Đọc ngay →</a>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- Latest Posts -->
+    <div class="section-header">
+        <h2 class="section-title">Bài viết mới nhất</h2>
+        <a href="#" class="section-more">Xem tất cả</a>
+    </div>
+
+    <div class="card-grid">
+        {% for post in posts | slice(start=1, end=4) %}
+        <article class="vibe-card" onclick="location.href='{{ post.url }}'">
+            <div class="vibe-card-image">
+                {% if post.cover %}
+                <img src="{{ post.cover }}" alt="{{ post.title }}" loading="lazy">
+                {% else %}
+                <div class="vibe-card-image-placeholder">V</div>
+                {% endif %}
+                {% if post.categories | length > 0 %}
+                <span class="vibe-card-category">{{ post.categories | first }}</span>
+                {% endif %}
+            </div>
+            <div class="vibe-card-body">
+                <h3 class="vibe-card-title">{{ post.title }}</h3>
+                <p class="vibe-card-excerpt">{{ post.summary | default(value='') | truncate(length=80) }}</p>
+                <div class="vibe-card-footer">
+                    <div class="vibe-card-author">
+                        <div class="vibe-card-avatar">A</div>
+                        <div>
+                            <div class="vibe-card-author-name">{{ post.author | default(value='Admin') }}</div>
+                            <div class="vibe-card-date">{{ post.date }}</div>
+                        </div>
+                    </div>
+                    <span class="vibe-card-reading">⏱️ 3 phút</span>
+                </div>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+
+    <!-- More Posts -->
+    {% if posts | length > 4 %}
+    <div class="section-header">
+        <h2 class="section-title">Khám phá thêm</h2>
+    </div>
+
+    <div class="card-grid">
+        {% for post in posts | slice(start=4, end=10) %}
+        <article class="vibe-card" onclick="location.href='{{ post.url }}'">
+            <div class="vibe-card-image">
+                {% if post.cover %}
+                <img src="{{ post.cover }}" alt="{{ post.title }}" loading="lazy">
+                {% else %}
+                <div class="vibe-card-image-placeholder">V</div>
+                {% endif %}
+                {% if post.categories | length > 0 %}
+                <span class="vibe-card-category">{{ post.categories | first }}</span>
+                {% endif %}
+            </div>
+            <div class="vibe-card-body">
+                <h3 class="vibe-card-title">{{ post.title }}</h3>
+                <p class="vibe-card-excerpt">{{ post.summary | default(value='') | truncate(length=80) }}</p>
+                <div class="vibe-card-footer">
+                    <div class="vibe-card-author">
+                        <div class="vibe-card-avatar">A</div>
+                        <div>
+                            <div class="vibe-card-author-name">{{ post.author | default(value='Admin') }}</div>
+                            <div class="vibe-card-date">{{ post.date }}</div>
+                        </div>
+                    </div>
+                    <span class="vibe-card-reading">⏱️ 3 phút</span>
+                </div>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Pagination -->
+    {% if pagination is defined and pagination.total_pages is defined and pagination.total_pages > 1 %}
+    <nav class="pagination">
+        {% if pagination.has_prev and pagination.prev_url %}
+        <a href="{{ pagination.prev_url }}">← Trước</a>
+        {% endif %}
+        <span class="current">{{ pagination.current_page }}/{{ pagination.total_pages }}</span>
+        {% if pagination.has_next and pagination.next_url %}
+        <a href="{{ pagination.next_url }}">Sau →</a>
+        {% endif %}
+    </nav>
+    {% endif %}
+</div>
+{% endblock %}

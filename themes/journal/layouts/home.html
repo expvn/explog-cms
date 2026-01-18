@@ -1,0 +1,439 @@
+{% extends "base.html" %}
+
+{% block title %}{{ site.title }} - Trang chủ{% endblock %}
+
+{% block head %}
+<style>
+    /* ===== Hero - Full image with text overlay ===== */
+    .hero {
+        position: relative;
+        min-height: 500px;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 32px 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 32px;
+    }
+
+    @media (min-width: 1024px) {
+        .hero {
+            min-height: 700px;
+            padding: 64px;
+        }
+    }
+
+    .hero-bg {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        transition: transform 1s ease;
+    }
+
+    .hero:hover .hero-bg {
+        transform: scale(1.05);
+    }
+
+    .hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(18, 18, 18, 0.95) 0%, rgba(18, 18, 18, 0.3) 50%, rgba(18, 18, 18, 0.1) 100%);
+    }
+
+    .hero-placeholder {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, var(--primary) 0%, #2a7a94 100%);
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 10;
+        max-width: 700px;
+    }
+
+    .hero-badge {
+        display: inline-block;
+        padding: 6px 12px;
+        background: rgba(166, 124, 0, 0.2);
+        border: 1px solid rgba(166, 124, 0, 0.3);
+        color: var(--accent);
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        margin-bottom: 20px;
+    }
+
+    .hero-title {
+        font-family: 'Noto Serif', serif;
+        font-size: 32px;
+        font-weight: 700;
+        color: white;
+        line-height: 1.15;
+        margin-bottom: 16px;
+    }
+
+    @media (min-width: 768px) {
+        .hero-title {
+            font-size: 48px;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .hero-title {
+            font-size: 56px;
+        }
+    }
+
+    .hero-excerpt {
+        font-size: 16px;
+        line-height: 1.7;
+        color: #d1d1d1;
+        font-weight: 300;
+        margin-bottom: 24px;
+        max-width: 520px;
+    }
+
+    @media (min-width: 768px) {
+        .hero-excerpt {
+            font-size: 18px;
+        }
+    }
+
+    .hero-actions {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+    }
+
+    .hero-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 16px 32px;
+        background: var(--primary);
+        color: white;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        border-radius: 8px;
+        transition: background 0.2s;
+    }
+
+    .hero-btn:hover {
+        background: #164350;
+    }
+
+    .hero-reading-time {
+        font-size: 13px;
+        color: #9ca3af;
+    }
+
+    /* ===== Quote Section ===== */
+    .quote-section {
+        text-align: center;
+        padding: 64px 24px;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .quote-line {
+        width: 64px;
+        height: 1px;
+        background: var(--accent);
+        margin: 0 auto 32px;
+    }
+
+    .quote-text {
+        font-family: 'Noto Serif', serif;
+        font-size: 20px;
+        font-style: italic;
+        color: var(--text-dark);
+        line-height: 1.6;
+    }
+
+    @media (min-width: 768px) {
+        .quote-text {
+            font-size: 28px;
+        }
+    }
+
+    .quote-author {
+        margin-top: 24px;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--text-muted);
+    }
+
+    /* ===== Section Header ===== */
+    .section-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 24px;
+    }
+
+    .section-title {
+        font-family: 'Noto Serif', serif;
+        font-size: 20px;
+        font-weight: 700;
+        padding-left: 16px;
+        border-left: 4px solid var(--accent);
+        color: var(--text-dark);
+    }
+
+    .section-more {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--primary);
+        transition: text-decoration 0.2s;
+    }
+
+    [data-theme="dark"] .section-more {
+        color: var(--accent);
+    }
+
+    .section-more:hover {
+        text-decoration: underline;
+    }
+
+    /* ===== Card Grid ===== */
+    .card-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 32px;
+        margin-bottom: 80px;
+    }
+
+    @media (min-width: 768px) {
+        .card-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .card-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    /* ===== Magazine Card - 4:5 with overlay ===== */
+    .mag-card {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        cursor: pointer;
+    }
+
+    .mag-card-image {
+        position: relative;
+        aspect-ratio: 4/5;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid var(--border);
+        background: var(--bg-surface);
+    }
+
+    .mag-card-bg {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        transition: transform 0.7s ease;
+    }
+
+    .mag-card:hover .mag-card-bg {
+        transform: scale(1.1);
+    }
+
+    .mag-card-image-placeholder {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, var(--primary) 0%, #2a7a94 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: rgba(255, 255, 255, 0.3);
+        font-family: 'Noto Serif', serif;
+        font-size: 48px;
+        font-weight: 700;
+    }
+
+    .mag-card-gradient {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 60%);
+    }
+
+    .mag-card-category {
+        position: absolute;
+        bottom: 24px;
+        left: 24px;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--accent);
+    }
+
+    .mag-card-title {
+        font-family: 'Noto Serif', serif;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 1.4;
+        color: var(--text-dark);
+        transition: color 0.2s;
+    }
+
+    .mag-card:hover .mag-card-title {
+        color: var(--primary);
+    }
+
+    [data-theme="dark"] .mag-card:hover .mag-card-title {
+        color: var(--accent);
+    }
+
+    .mag-card-excerpt {
+        font-size: 14px;
+        line-height: 1.6;
+        color: var(--text-muted);
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    /* ===== Pagination ===== */
+    .pagination {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin: 48px 0;
+    }
+
+    .pagination a,
+    .pagination span {
+        padding: 12px 20px;
+        background: var(--bg-surface);
+        border: 1px solid var(--border);
+        font-size: 13px;
+        font-weight: 600;
+        transition: all 0.2s;
+    }
+
+    .pagination a:hover,
+    .pagination .current {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="wrapper">
+    <!-- Hero - Full image with text overlay -->
+    {% if posts | length > 0 %}
+    {% set featured = posts | first %}
+    <section class="hero">
+        {% if featured.cover %}
+        <div class="hero-bg" style="background-image: url('{{ featured.cover }}');"></div>
+        {% else %}
+        <div class="hero-placeholder"></div>
+        {% endif %}
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            {% if featured.categories | length > 0 %}
+            <span class="hero-badge">{{ featured.categories | first }}</span>
+            {% endif %}
+            <h1 class="hero-title">{{ featured.title }}</h1>
+            <p class="hero-excerpt">{{ featured.summary | default(value='') | truncate(length=150) }}</p>
+            <div class="hero-actions">
+                <a href="{{ featured.url }}" class="hero-btn">Đọc Tiếp →</a>
+                <span class="hero-reading-time">5 phút đọc</span>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- Quote Section -->
+    <section class="quote-section">
+        <div class="quote-line"></div>
+        <p class="quote-text">"Thiết kế không chỉ là diện mạo hay cảm nhận. Thiết kế là cách nó vận hành và nuôi dưỡng
+            tâm hồn người ở."</p>
+        <p class="quote-author">Steve Jobs & Triết lý kiến trúc mới</p>
+    </section>
+
+    <!-- Section Header -->
+    <div class="section-header">
+        <h2 class="section-title">Câu Chuyện Mới Nhất</h2>
+        <a href="#" class="section-more">Xem tất cả</a>
+    </div>
+
+    <!-- Card Grid -->
+    <div class="card-grid">
+        {% for post in posts | slice(start=1, end=4) %}
+        <article class="mag-card" onclick="location.href='{{ post.url }}'">
+            <div class="mag-card-image">
+                {% if post.cover %}
+                <div class="mag-card-bg" style="background-image: url('{{ post.cover }}');"></div>
+                {% else %}
+                <div class="mag-card-image-placeholder">J</div>
+                {% endif %}
+                <div class="mag-card-gradient"></div>
+                {% if post.categories | length > 0 %}
+                <span class="mag-card-category">{{ post.categories | first }}</span>
+                {% endif %}
+            </div>
+            <h3 class="mag-card-title">{{ post.title }}</h3>
+            <p class="mag-card-excerpt">{{ post.summary | default(value='') | truncate(length=100) }}</p>
+        </article>
+        {% endfor %}
+    </div>
+
+    <!-- More Posts -->
+    {% if posts | length > 4 %}
+    <div class="section-header">
+        <h2 class="section-title">Bài Viết Khác</h2>
+    </div>
+
+    <div class="card-grid">
+        {% for post in posts | slice(start=4, end=7) %}
+        <article class="mag-card" onclick="location.href='{{ post.url }}'">
+            <div class="mag-card-image">
+                {% if post.cover %}
+                <div class="mag-card-bg" style="background-image: url('{{ post.cover }}');"></div>
+                {% else %}
+                <div class="mag-card-image-placeholder">J</div>
+                {% endif %}
+                <div class="mag-card-gradient"></div>
+                {% if post.categories | length > 0 %}
+                <span class="mag-card-category">{{ post.categories | first }}</span>
+                {% endif %}
+            </div>
+            <h3 class="mag-card-title">{{ post.title }}</h3>
+            <p class="mag-card-excerpt">{{ post.summary | default(value='') | truncate(length=100) }}</p>
+        </article>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Pagination -->
+    {% if pagination is defined and pagination.total_pages is defined and pagination.total_pages > 1 %}
+    <nav class="pagination">
+        {% if pagination.has_prev and pagination.prev_url %}
+        <a href="{{ pagination.prev_url }}">← Trước</a>
+        {% endif %}
+        <span class="current">{{ pagination.current_page }}/{{ pagination.total_pages }}</span>
+        {% if pagination.has_next and pagination.next_url %}
+        <a href="{{ pagination.next_url }}">Sau →</a>
+        {% endif %}
+    </nav>
+    {% endif %}
+</div>
+{% endblock %}

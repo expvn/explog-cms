@@ -1,57 +1,31 @@
 ---
-title: "Hello World"
+title: "Giới thiệu về EXPVN"
 date: 2024-01-01
 slug: "hello-world"
 categories:
   - "General"
 tags:
-  - "explog"
-  - "getting-started"
-summary: "Welcome to Explog CMS - a blazing fast static site generator written in Rust."
+  - "expvn"
+  - "gioi-thieu"
+summary: "EXPVN - Nơi chia sẻ kiến thức về Game, Công nghệ và Lập trình."
 cover: null
 featured: true
 draft: false
 author: "admin"
 ---
 
-# Welcome to Explog! 🚀
+# Chào mừng đến với EXPVN! 🎮💻
 
-This is your first post built with **Explog CMS** - a blazing fast static site generator written in Rust.
+**EXPVN** là blog cá nhân chuyên chia sẻ kiến thức về **Game**, **Công nghệ** và **Lập trình**.
 
-## Why Explog?
+## Tại đây, bạn sẽ tìm thấy gì?
 
-- ⚡ **Blazing Fast** - Built with Rust for maximum performance
-- 📦 **Static Output** - Just HTML, CSS, and JS. Deploy anywhere!
-- 🎨 **Themeable** - Easy-to-create themes with Tera templates
-- 🔍 **SEO Ready** - Automatic meta tags, sitemaps, and more
+- 🎮 **Game**: Giới thiệu các game hay, hướng dẫn chơi game, và chia sẻ kinh nghiệm.
+- 💡 **Công nghệ**: Tin tức công nghệ, thủ thuật máy tính, và các công cụ hữu ích.
+- 👨‍💻 **Lập trình**: Series học Python, Git/GitHub cấp tốc, và các bài viết về phát triển phần mềm.
 
-## Getting Started
+## Về tác giả
 
-### Create a New Post
+Mình là một lập trình viên đam mê công nghệ và game. Blog này là nơi mình ghi chép lại những kiến thức đã học được, hy vọng sẽ giúp ích cho các bạn đang tìm hiểu về lĩnh vực này.
 
-```bash
-explog new post "My Awesome Post"
-```
-
-### Build Your Site
-
-```bash
-explog build
-```
-
-### Start Development Server
-
-```bash
-explog dev
-```
-
-## What's Next?
-
-1. Customize your `explog.toml` configuration
-2. Create more posts in `content/posts/`
-3. Customize the theme in `themes/default/`
-4. Deploy to your favorite hosting platform!
-
-Happy blogging! 📝
-
-<!-- test incremental build -->
+Cảm ơn bạn đã ghé thăm! 🚀

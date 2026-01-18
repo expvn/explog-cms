@@ -42,12 +42,15 @@ pub fn parse_markdown(content: &str) -> Result<(String, String)> {
 }
 
 /// Convert bare URLs to markdown links before processing
-/// Only converts URLs that are not already inside markdown link syntax
+/// Only converts URLs that are NOT inside:
+/// - Markdown link syntax [text](url)
+/// - Code blocks (``` ... ```)
+/// - Inline code (`...`)
 fn linkify_urls(text: &str) -> String {
     use regex::Regex;
     
     // Simple URL regex - matches http/https URLs
-    let url_regex = Regex::new(r"(https?://[^\s<>\[\]]+)").unwrap();
+    let url_regex = Regex::new(r"(https?://[^\s<>\[\]`]+)").unwrap();
     
     let mut result = String::new();
     let mut last_end = 0;
@@ -58,14 +61,22 @@ fn linkify_urls(text: &str) -> String {
         let start = m.start();
         
         // Check if this URL is already inside a markdown link
-        // Look for ]( before the URL or ( immediately before
         let before = &text[..start];
-        let is_already_linked = before.ends_with("](") || 
-                                before.ends_with("](") ||
-                                before.ends_with("\"") ||
-                                before.ends_with("'");
+        let is_in_link = before.ends_with("](") || 
+                         before.ends_with("\"") ||
+                         before.ends_with("'");
         
-        if is_already_linked {
+        // Check if inside code block (count unmatched ```)
+        let code_block_count = before.matches("```").count();
+        let is_in_code_block = code_block_count % 2 == 1;
+        
+        // Check if inside inline code (count unmatched `)
+        // But exclude ``` which we already handled
+        let before_no_blocks = before.replace("```", "___");
+        let backtick_count = before_no_blocks.matches('`').count();
+        let is_in_inline_code = backtick_count % 2 == 1;
+        
+        if is_in_link || is_in_code_block || is_in_inline_code {
             // Keep as-is
             result.push_str(&text[last_end..m.end()]);
         } else {

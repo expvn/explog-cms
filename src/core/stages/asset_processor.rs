@@ -27,7 +27,7 @@ impl BuildStage for AssetProcessorStage {
         
         // Copy post assets
         for post in &context.posts {
-            let post_dir = std::path::Path::new(&post.source_path).parent().unwrap();
+            let post_dir = std::path::Path::new(&post.source_path).parent().unwrap_or(std::path::Path::new("."));
             assets::copy_post_assets(post_dir, &post.slug, output_dir)?;
         }
         info!("Copied assets for {} posts", context.posts.len());

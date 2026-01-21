@@ -22,6 +22,8 @@ pub struct BuildCache {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PostCacheEntry {
     pub hash: String,
+    #[serde(default)]
+    pub source_hash: String,  // Hash of source file (index.md)
     pub title: String,
     pub categories: Vec<String>,
     pub tags: Vec<String>,
@@ -31,6 +33,8 @@ pub struct PostCacheEntry {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PageCacheEntry {
     pub hash: String,
+    #[serde(default)]
+    pub source_hash: String,  // Hash of source directory/file
     pub title: String,
 }
 
@@ -179,11 +183,13 @@ pub fn detect_changes(
     // Check each post
     for post in posts {
         let post_hash = hash_bytes(post.raw_content.as_bytes());
+        // Hash source file for modification detection
+        let source_hash = hash_file(&post.source_path).unwrap_or_default();
         
         if let Some(cached) = old_cache.posts.get(&post.slug) {
-            // Post exists in cache
-            if cached.hash != post_hash {
-                // Content changed
+            // Post exists in cache - check both content hash and source file hash
+            if cached.hash != post_hash || cached.source_hash != source_hash {
+                // Content or source file changed
                 info!("Post changed: {}", post.slug);
                 changes.posts_to_rebuild.insert(post.slug.clone());
                 
@@ -250,9 +256,13 @@ pub fn detect_changes(
     // Check each page
     for page in pages {
         let page_hash = hash_bytes(page.content.as_bytes());
+        // Hash source directory for modification detection
+        let source_hash = page.source_dir.as_ref()
+            .map(|dir| hash_directory(dir).unwrap_or_default())
+            .unwrap_or_default();
         
         if let Some(cached) = old_cache.pages.get(&page.slug) {
-            if cached.hash != page_hash {
+            if cached.hash != page_hash || cached.source_hash != source_hash {
                 info!("Page changed: {}", page.slug);
                 changes.pages_to_rebuild.insert(page.slug.clone());
             }
@@ -277,8 +287,10 @@ pub fn create_cache(
     cache.config_hash = config_hash;
 
     for post in posts {
+        let source_hash = hash_file(&post.source_path).unwrap_or_default();
         cache.posts.insert(post.slug.clone(), PostCacheEntry {
             hash: hash_bytes(post.raw_content.as_bytes()),
+            source_hash,
             title: post.title.clone(),
             categories: post.categories.clone(),
             tags: post.tags.clone(),
@@ -287,11 +299,84 @@ pub fn create_cache(
     }
 
     for page in pages {
+        let source_hash = page.source_dir.as_ref()
+            .map(|dir| hash_directory(dir).unwrap_or_default())
+            .unwrap_or_default();
         cache.pages.insert(page.slug.clone(), PageCacheEntry {
             hash: hash_bytes(page.content.as_bytes()),
+            source_hash,
             title: page.title.clone(),
         });
     }
 
     cache
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_hash_bytes() {
+        let hash1 = hash_bytes(b"hello world");
+        let hash2 = hash_bytes(b"hello world");
+        let hash3 = hash_bytes(b"different content");
+        
+        assert_eq!(hash1, hash2, "Same content should produce same hash");
+        assert_ne!(hash1, hash3, "Different content should produce different hash");
+        assert_eq!(hash1.len(), 64, "SHA-256 hash should be 64 hex characters");
+    }
+
+    #[test]
+    fn test_build_cache_new() {
+        let cache = BuildCache::new();
+        
+        assert_eq!(cache.version, CACHE_VERSION);
+        assert!(cache.posts.is_empty());
+        assert!(cache.pages.is_empty());
+        assert!(cache.theme_hash.is_empty());
+        assert!(cache.config_hash.is_empty());
+    }
+
+    #[test]
+    fn test_changeset_full_rebuild() {
+        let changes = ChangeSet::full_rebuild();
+        
+        assert!(changes.is_full_rebuild);
+        assert!(changes.rebuild_home);
+        assert!(!changes.is_empty());
+    }
+
+    #[test]
+    fn test_changeset_is_empty() {
+        let empty = ChangeSet::default();
+        assert!(empty.is_empty());
+        
+        let mut with_posts = ChangeSet::default();
+        with_posts.posts_to_rebuild.insert("test".to_string());
+        assert!(!with_posts.is_empty());
+        
+        let mut with_home = ChangeSet::default();
+        with_home.rebuild_home = true;
+        assert!(!with_home.is_empty());
+    }
+
+    #[test]
+    fn test_post_cache_entry_serialization() {
+        let entry = PostCacheEntry {
+            hash: "abc123".to_string(),
+            source_hash: "def456".to_string(),
+            title: "Test Post".to_string(),
+            categories: vec!["Tech".to_string()],
+            tags: vec!["rust".to_string()],
+            featured: true,
+        };
+        
+        let json = serde_json::to_string(&entry).unwrap();
+        let parsed: PostCacheEntry = serde_json::from_str(&json).unwrap();
+        
+        assert_eq!(parsed.hash, entry.hash);
+        assert_eq!(parsed.title, entry.title);
+        assert_eq!(parsed.featured, entry.featured);
+    }
 }

@@ -24,11 +24,7 @@ children = [
 
 [[site.navigation]]
 label = "Game"
-url = "#"
-children = [
-    { label = "Space Survival 1", url = "/test-webgl/" },
-    { label = "Space Survival 2", url = "/spacesurvival/" },
-]
+url = "/expgames/"
 
 [[site.navigation]]
 label = "Giới thiệu"

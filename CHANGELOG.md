@@ -5,6 +5,32 @@ All notable changes to Explog CMS will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.8] - 2026-01-21
+
+### Added
+- **User Guide Documentation** (`docs/user_guide.md`): Comprehensive getting started guide
+- **Security Guide** (`docs/security.md`): Cargo audit instructions and best practices
+- **Cache Module Tests**: Unit tests for hash functions, BuildCache, and ChangeSet
+- **Stages Module Documentation**: Detailed docs explaining pipeline architecture and future plans
+
+### Changed
+- **Safer Error Handling**: Replaced `.unwrap()` with `.unwrap_or()` in 6 locations across builder.rs, template.rs, asset_processor.rs, asset_validator.rs
+- **API Module Documentation**: Added `#![allow(dead_code)]` with doc comments to image_cdn.rs and seo.rs explaining they are public APIs for plugins
+- **Removed Unused Import**: Removed `std::collections::HashMap` from image_cdn.rs
+
+### Fixed
+- **Compiler Warnings**: Reduced warnings from 21 to minimal (only intentional dead_code for API modules)
+
+## [0.3.7] - 2026-01-20
+
+### Fixed
+- **Selective rebuild for Gallery pages**: `explog build --page <slug>` now correctly renders Gallery pages with proper template and copies gallery assets
+- **Incremental build detection**: Now detects file modifications by hashing source files, not just parsed content. Files edited after build will be correctly detected and rebuilt
+
+### Changed
+- **Gallery template renamed**: `customize/default.html` → `gallery.html` (moved out of customize/ folder)
+- Template lookup maintains backward compatibility with old `customize/default.html` path
+
 ## [0.3.6] - 2026-01-18
 
 ### Added

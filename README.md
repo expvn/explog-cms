@@ -27,7 +27,7 @@
 
 ---
 
-![Version](https://img.shields.io/badge/version-0.3.6-blue)
+![Version](https://img.shields.io/badge/version-0.3.8-blue)
 ![Rust](https://img.shields.io/badge/rust-1.70+-orange)
 ![License](https://img.shields.io/badge/license-MIT-green)
 

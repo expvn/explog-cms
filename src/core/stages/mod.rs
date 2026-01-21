@@ -1,6 +1,33 @@
-//! Build pipeline stages
+//! Build Pipeline Stages Module
+//!
+//! This module implements a stage-based build pipeline for advanced build orchestration.
+//! Each stage is a self-contained unit of work that can be composed into pipelines.
+//!
+//! ## Current Status
 //! 
-//! Each stage is a self-contained unit of work in the build pipeline.
+//! The stages are implemented but the `builder.rs` currently uses a direct build approach
+//! for simplicity. This module is designed for future extensibility when:
+//! - Plugin system needs to hook into specific build stages
+//! - Custom pipelines are needed for specialized builds
+//! - Parallel stage execution is implemented
+//!
+//! ## Stage Priority Order
+//! 
+//! | Stage | Priority | Description |
+//! |-------|----------|-------------|
+//! | ContentLoader | 10 | Load posts and pages |
+//! | TaxonomyBuilder | 20 | Build categories/tags |
+//! | RelatedPosts | 30 | Calculate related posts |
+//! | Navigation | 35 | Prev/next navigation |
+//! | TemplateRenderer | 40 | Render all templates |
+//! | AssetProcessor | 50 | Copy and process assets |
+//! | SeoGenerator | 60 | Sitemap, feeds, search |
+//!
+//! ## Future Considerations
+//! 
+//! - Async stage execution for I/O-bound operations
+//! - Stage dependency graph for parallel execution
+//! - Plugin-provided custom stages
 
 mod content_loader;
 mod taxonomy_builder;

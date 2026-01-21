@@ -1,3 +1,7 @@
+//! SEO Module - Public API for template SEO injection
+//! These functions are intentionally public for plugin/extension use
+#![allow(dead_code)]
+
 use serde::Serialize;
 use crate::models::{Post, Page};
 use crate::models::site::SiteConfig;

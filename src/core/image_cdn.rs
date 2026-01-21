@@ -1,5 +1,8 @@
+//! Image CDN Module - Public API for future CDN integration
+//! These functions are intentionally public for plugin/extension use
+#![allow(dead_code)]
+
 use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
 
 /// Image transformation options
 #[derive(Debug, Clone, Default)]

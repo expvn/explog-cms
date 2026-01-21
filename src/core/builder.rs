@@ -26,37 +26,74 @@ pub async fn build_site_selective(config: &SiteConfig, force_clean: bool, opts: 
 }
 
 /// Invalidate cache entries for selective rebuild
+/// This removes cache entries so they appear as "new" on next build
 fn invalidate_selective_cache(opts: &RebuildOptions) -> Result<()> {
-    let _cache_dir = Path::new(".cache");
+    use std::fs;
     
+    // Load existing cache
+    let cache_path = Path::new(".cache/content-hashes.json");
+    if !cache_path.exists() {
+        info!("No cache to invalidate");
+        return Ok(());
+    }
+    
+    let content = fs::read_to_string(cache_path)?;
+    let mut cache: serde_json::Value = serde_json::from_str(&content)?;
+    
+    let mut modified = false;
+    
+    // Remove page entry from cache
     if let Some(ref slug) = opts.page {
-        // Touch page.json to invalidate
-        let page_path = format!("content/pages/{}/page.json", slug);
-        if Path::new(&page_path).exists() {
-            let now = std::time::SystemTime::now();
-            filetime::set_file_mtime(&page_path, filetime::FileTime::from_system_time(now)).ok();
-            info!("Invalidated page cache: {}", slug);
+        if let Some(pages) = cache.get_mut("pages") {
+            if let Some(pages_obj) = pages.as_object_mut() {
+                if pages_obj.remove(slug).is_some() {
+                    info!("Removed page '{}' from cache - will rebuild", slug);
+                    modified = true;
+                } else {
+                    info!("Page '{}' not in cache (will be built as new)", slug);
+                }
+            }
         }
     }
     
+    // Remove post entry from cache  
     if let Some(ref slug) = opts.post {
-        // Touch post index.md to invalidate
-        let post_path = format!("content/posts/{}/index.md", slug);
-        if Path::new(&post_path).exists() {
-            let now = std::time::SystemTime::now();
-            filetime::set_file_mtime(&post_path, filetime::FileTime::from_system_time(now)).ok();
-            info!("Invalidated post cache: {}", slug);
+        if let Some(posts) = cache.get_mut("posts") {
+            if let Some(posts_obj) = posts.as_object_mut() {
+                if posts_obj.remove(slug).is_some() {
+                    info!("Removed post '{}' from cache - will rebuild", slug);
+                    modified = true;
+                } else {
+                    info!("Post '{}' not in cache (will be built as new)", slug);
+                }
+            }
         }
     }
     
-    if let Some(ref name) = opts.category {
-        // For category/tag, we clear the cache to force rebuild
-        info!("Invalidating category: {} (clearing cache)", name);
-        // Mark for full rebuild of category
+    // For category, mark home and affected category for rebuild
+    if let Some(ref _name) = opts.category {
+        info!("Category rebuild requested - invalidating home page");
+        // Remove a field to force home rebuild (theme_hash trick)
+        if let Some(theme_hash) = cache.get_mut("theme_hash") {
+            *theme_hash = serde_json::Value::String(String::new());
+            modified = true;
+        }
     }
     
-    if let Some(ref name) = opts.tag {
-        info!("Invalidating tag: {} (clearing cache)", name);
+    // For tag, same approach  
+    if let Some(ref _name) = opts.tag {
+        info!("Tag rebuild requested - invalidating affected pages");
+        if let Some(theme_hash) = cache.get_mut("theme_hash") {
+            *theme_hash = serde_json::Value::String(String::new());
+            modified = true;
+        }
+    }
+    
+    // Save modified cache
+    if modified {
+        let updated = serde_json::to_string_pretty(&cache)?;
+        fs::write(cache_path, updated)?;
+        info!("Cache updated for selective rebuild");
     }
     
     Ok(())
@@ -262,7 +299,7 @@ pub async fn build_site(config: &SiteConfig, force_clean: bool) -> Result<Site> 
 
         // Copy all post assets
         for post in &posts {
-            let post_dir = std::path::Path::new(&post.source_path).parent().unwrap();
+            let post_dir = std::path::Path::new(&post.source_path).parent().unwrap_or(std::path::Path::new("."));
             crate::core::assets::copy_post_assets(post_dir, &post.slug, output_dir)?;
         }
     } else if changes.is_empty() {
@@ -291,20 +328,65 @@ pub async fn build_site(config: &SiteConfig, force_clean: bool) -> Result<Site> 
                 write_html(output_dir, &post_path, &post_html)?;
                 
                 // Copy assets for this post
-                let post_dir = std::path::Path::new(&post.source_path).parent().unwrap();
+                let post_dir = std::path::Path::new(&post.source_path).parent().unwrap_or(std::path::Path::new("."));
                 crate::core::assets::copy_post_assets(post_dir, &post.slug, output_dir)?;
                 
                 posts_rendered += 1;
             }
         }
 
-        // Render changed pages
+        // Render changed pages with proper mode/type handling
         for slug in &changes.pages_to_rebuild {
             if let Some(page) = pages.iter().find(|p| &p.slug == slug) {
                 info!("  Rebuilding page: {}", slug);
-                let page_html = engine.render_page(&site, page)?;
-                let page_path = format!("{}/index.html", page.slug);
-                write_html(output_dir, &page_path, &page_html)?;
+                use crate::models::{ContentType, PageMode};
+                
+                match page.mode {
+                    PageMode::Standalone => {
+                        if let Some(ref source_dir) = page.source_dir {
+                            let source = std::path::Path::new(source_dir);
+                            let dest = std::path::Path::new(output_dir).join(&page.slug);
+                            copy_dir_recursive(source, &dest)?;
+                        }
+                    }
+                    PageMode::Embedded => {
+                        match page.content_type {
+                            ContentType::Gallery => {
+                                let page_html = engine.render_customize_page(&site, page)?;
+                                let page_path = format!("{}/index.html", page.slug);
+                                write_html(output_dir, &page_path, &page_html)?;
+                                
+                                if let Some(ref source_dir) = page.source_dir {
+                                    let source = std::path::Path::new(source_dir);
+                                    let dest = std::path::Path::new(output_dir).join(&page.slug);
+                                    copy_assets_only(source, &dest)?;
+                                }
+                            }
+                            ContentType::Html => {
+                                if page.embed.is_some() {
+                                    let page_html = engine.render_embed_page(&site, page)?;
+                                    let page_path = format!("{}/index.html", page.slug);
+                                    write_html(output_dir, &page_path, &page_html)?;
+                                    
+                                    if let Some(ref source_dir) = page.source_dir {
+                                        let source = std::path::Path::new(source_dir);
+                                        let dest = std::path::Path::new(output_dir).join(&page.slug).join("embed");
+                                        copy_dir_recursive(source, &dest)?;
+                                    }
+                                } else {
+                                    let page_html = engine.render_page(&site, page)?;
+                                    let page_path = format!("{}/index.html", page.slug);
+                                    write_html(output_dir, &page_path, &page_html)?;
+                                }
+                            }
+                            ContentType::Markdown => {
+                                let page_html = engine.render_page(&site, page)?;
+                                let page_path = format!("{}/index.html", page.slug);
+                                write_html(output_dir, &page_path, &page_html)?;
+                            }
+                        }
+                    }
+                }
                 pages_rendered += 1;
             }
         }

@@ -127,7 +127,7 @@ impl TemplateEngine {
         
         // Load parent theme first if extends is set
         let mut tera = if let Some(parent_name) = theme_config.theme.extends.filter(|s| !s.is_empty()) {
-            let parent_dir = theme_dir.parent().unwrap().join(&parent_name);
+            let parent_dir = theme_dir.parent().unwrap_or(std::path::Path::new(".")).join(&parent_name);
             let parent_pattern = parent_dir.join("layouts/**/*.html");
             Tera::new(&parent_pattern.to_string_lossy())
                 .with_context(|| format!("Failed to load parent theme: {}", parent_name))?
@@ -272,26 +272,29 @@ impl TemplateEngine {
             context.insert("description", desc);
         }
 
-        // Try custom template first, then fallback to customize/default.html, then page.html
-        let template_name = page.template
-            .as_ref()
-            .map(|t| format!("customize/{}.html", t))
-            .unwrap_or_else(|| "customize/default.html".to_string());
-
-        if self.tera.get_template_names().any(|n| n == template_name) {
-            self.tera
-                .render(&template_name, &context)
-                .context("Failed to render customize template")
-        } else if self.tera.get_template_names().any(|n| n == "customize/default.html") {
-            self.tera
-                .render("customize/default.html", &context)
-                .context("Failed to render customize default template")
-        } else {
-            // Ultimate fallback to page.html
-            self.tera
-                .render("page.html", &context)
-                .context("Failed to render customize page (using page.html fallback)")
+        // Try custom template, then gallery.html, then backward-compat customize/, then page.html
+        let custom_template = page.template.as_ref().map(|t| format!("{}.html", t));
+        
+        // Priority: custom template > gallery.html > customize/default.html (legacy) > page.html
+        let template_candidates = [
+            custom_template.as_deref(),
+            Some("gallery.html"),
+            Some("customize/default.html"),  // backward compatibility
+            Some("page.html"),
+        ];
+        
+        for candidate in template_candidates.iter().flatten() {
+            if self.tera.get_template_names().any(|n| n == *candidate) {
+                return self.tera
+                    .render(candidate, &context)
+                    .context(format!("Failed to render gallery template: {}", candidate));
+            }
         }
+        
+        // Should not reach here, but fallback
+        self.tera
+            .render("page.html", &context)
+            .context("Failed to render gallery page (ultimate fallback)")
     }
 
     /// Render a category listing page

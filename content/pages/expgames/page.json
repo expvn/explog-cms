@@ -20,13 +20,13 @@
             "cover": "cover3.jpg",
             "title": "Test ABCDEF",
             "description": "Đây là 1 game test",
-            "url": "/test-webgl/"
+            "url": "/post/gioi-thieu-tinh-nang-che-tao-trang-bi/"
         },
         {
             "cover": "cover4.jpg",
             "title": "Game Game Game Game",
             "description": "Chơi game, chơi game thôi, abcdef",
-            "url": "/test-webgl/"
+            "url": "/post/hello-world/"
         }
     ]
 }

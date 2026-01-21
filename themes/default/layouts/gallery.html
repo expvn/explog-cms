@@ -46,11 +46,12 @@
     .customize-header h1 {
         font-size: 2.5rem;
         margin-bottom: 16px;
+        color: var(--color-text);
     }
 
     .customize-description {
         font-size: 1.1rem;
-        color: var(--text-muted, #666);
+        color: var(--color-text-secondary);
         max-width: 600px;
         margin: 0 auto;
     }
@@ -61,31 +62,40 @@
         gap: 24px;
     }
 
+    /* Gallery item - reuses theme's post-card styling */
     .gallery-item {
         display: block;
-        background: var(--bg-card, #fff);
-        border-radius: 12px;
+        background: var(--color-bg-secondary);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg, 12px);
         overflow: hidden;
         text-decoration: none;
         color: inherit;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        transition: transform 0.2s, box-shadow 0.2s;
+        box-shadow: var(--shadow-sm);
+        transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
     }
 
     .gallery-item:hover {
         transform: translateY(-4px);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        box-shadow: var(--shadow-md);
+        border-color: var(--color-primary);
     }
 
     .gallery-item__image {
         aspect-ratio: 16/9;
         overflow: hidden;
+        background: var(--color-border);
     }
 
     .gallery-item__image img {
         width: 100%;
         height: 100%;
         object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover .gallery-item__image img {
+        transform: scale(1.05);
     }
 
     .gallery-item__content {
@@ -94,18 +104,25 @@
 
     .gallery-item__title {
         font-size: 1.1rem;
+        font-weight: 600;
         margin-bottom: 8px;
+        color: var(--color-text);
     }
 
     .gallery-item__desc {
         font-size: 0.9rem;
-        color: var(--text-muted, #666);
-        line-height: 1.4;
+        color: var(--color-text-secondary);
+        line-height: 1.5;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 
     .customize-empty {
         max-width: 800px;
         margin: 0 auto;
+        color: var(--color-text);
     }
 </style>
 {% endblock %}

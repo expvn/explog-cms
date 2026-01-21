@@ -47,7 +47,7 @@ pub fn validate_assets(posts: &[Post], pages: &[Page]) -> Vec<AssetError> {
     
     // Validate posts
     for post in posts {
-        let post_dir = Path::new(&post.source_path).parent().unwrap();
+        let post_dir = Path::new(&post.source_path).parent().unwrap_or(Path::new("."));
         let content = &post.content;
         
         // Check Markdown images
@@ -106,7 +106,7 @@ pub fn validate_assets(posts: &[Post], pages: &[Page]) -> Vec<AssetError> {
     
     // Validate pages
     for page in pages {
-        let page_dir = Path::new(&page.source_path).parent().unwrap();
+        let page_dir = Path::new(&page.source_path).parent().unwrap_or(Path::new("."));
         let content = &page.content;
         
         for cap in img_regex.captures_iter(content) {

@@ -23,13 +23,15 @@ pub fn list_plugins(plugins_dir: &str) -> Result<()> {
     }
     
     println!("Installed plugins:\n");
-    println!("{:<20} {:<10} {:<40}", "NAME", "VERSION", "DESCRIPTION");
-    println!("{}", "-".repeat(70));
+    println!("{:<20} {:<10} {:<10} {:<40}", "NAME", "VERSION", "STATUS", "DESCRIPTION");
+    println!("{}", "-".repeat(80));
     
     for plugin in plugins {
-        println!("{:<20} {:<10} {:<40}", 
+        let status = if plugin.enabled { "enabled" } else { "disabled" };
+        println!("{:<20} {:<10} {:<10} {:<40}", 
             plugin.manifest.plugin.name,
             plugin.manifest.plugin.version,
+            status,
             plugin.manifest.plugin.description.chars().take(40).collect::<String>()
         );
     }

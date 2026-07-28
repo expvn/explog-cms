@@ -16,6 +16,17 @@ const DEBOUNCE_MS: u64 = 300;
 
 /// Run the development server with hot reload
 pub async fn run(port: u16) -> Result<()> {
+    // Run on_dev_start hook
+    let config = crate::core::config::load_config("explog.toml")?;
+    let mut registry = crate::core::plugin_system::PluginRegistry::new();
+    let hook_context = crate::core::plugin_system::HookContext {
+        output_dir: config.build.output_dir.clone(),
+        content_dir: "content".to_string(),
+        theme_dir: format!("themes/{}", config.build.theme),
+    };
+    registry.load_from_dir("plugins")?;
+    registry.execute_hook(crate::core::plugin_system::HookType::OnDevStart, &hook_context)?;
+
     // Initial build
     build::run(false, None, None, None, None).await?;
 

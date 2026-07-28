@@ -27,7 +27,7 @@
 
 ---
 
-![Version](https://img.shields.io/badge/version-0.3.8-blue)
+![Version](https://img.shields.io/badge/version-0.3.11-blue)
 ![Rust](https://img.shields.io/badge/rust-1.70+-orange)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
@@ -77,8 +77,16 @@ cargo build --release
 
 ### Create Your First Post
 
+> 💡 **Windows Tip:** In the project root directory, you can run commands directly using `explog` (CMD) or `.\explog` (PowerShell) instead of typing long paths.
+
 ```bash
-# Working directory: project root (where explog.toml is located)
+# Windows CMD:
+explog new post my-first-post
+
+# Windows PowerShell:
+.\explog new post my-first-post
+
+# macOS/Linux:
 ./target/release/explog new post my-first-post
 ```
 
@@ -92,13 +100,11 @@ content/posts/my-first-post/
 ### Build & Preview
 
 ```bash
-# Working directory: project root (where explog.toml is located)
-
 # Build the site
-./target/release/explog build
+explog build
 
 # Start dev server with hot-reload
-./target/release/explog dev --port 3000
+explog dev --port 3000
 ```
 
 Open `http://localhost:3000` in your browser.
@@ -121,6 +127,8 @@ explog/
 ├── plugins/             # Plugins directory
 ├── public/              # Build output (auto-generated)
 ├── .cache/              # Build cache (auto-generated)
+├── explog.bat           # Executable command wrapper for Windows CMD (auto-rebuilds)
+├── explog.ps1           # Executable command wrapper for Windows PowerShell (auto-rebuilds)
 └── explog.toml          # Site configuration
 ```
 
@@ -129,31 +137,33 @@ explog/
 ## 💻 CLI Commands
 
 > **Important:** All commands must be run from the project root directory (where `explog.toml` is located).
+>
+> 💡 *In the instructions below, commands are shown as `explog <args>`. On Windows PowerShell please use `.\explog`, on macOS/Linux please use `./target/release/explog`.*
 
 ### Build Commands
 
 ```bash
 # Full build
-./target/release/explog build
+explog build
 
 # Force clean rebuild (ignore cache)
-./target/release/explog build --clean
+explog build --clean
 
 # Selective rebuild (rebuild specific content only)
-./target/release/explog build --page page-slug
-./target/release/explog build --post post-slug
-./target/release/explog build --category category-name
-./target/release/explog build --tag tag-name
+explog build --page page-slug
+explog build --post post-slug
+explog build --category category-name
+explog build --tag tag-name
 ```
 
 ### Development Server
 
 ```bash
 # Start dev server (default port 8080)
-./target/release/explog dev
+explog dev
 
 # Custom port
-./target/release/explog dev --port 3000
+explog dev --port 3000
 ```
 
 The dev server:
@@ -165,33 +175,33 @@ The dev server:
 
 ```bash
 # Create new post
-./target/release/explog new post my-post-slug
+explog new post my-post-slug
 
 # Create new page
-./target/release/explog new page about
+explog new page about
 ```
 
 ### Cache Management
 
 ```bash
 # Clear build cache
-./target/release/explog clean
+explog clean
 ```
 
 ### Plugin Management
 
 ```bash
 # List installed plugins
-./target/release/explog plugin list
+explog plugin list
 
 # Show plugin details
-./target/release/explog plugin show plugin-name
+explog plugin show plugin-name
 
 # Create new plugin
-./target/release/explog plugin new my-plugin
+explog plugin new my-plugin
 
 # Remove plugin
-./target/release/explog plugin remove plugin-name
+explog plugin remove plugin-name
 ```
 
 ### SEO Analyzer

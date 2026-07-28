@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký Tư Vấn Khóa Học - EXP Academy</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .register-container {
+            max-width: 760px;
+            margin: 3rem auto 6rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        .register-iframe-wrapper {
+            position: relative;
+            width: 100%;
+            height: 2050px;
+            overflow: hidden;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            background: #ffffff; /* White background to match Google Form styling */
+        }
+        .register-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-container">
+            <a href="/" class="logo">EXP Academy</a>
+            <nav class="nav-links">
+                <a href="/">Trang chủ Blog</a>
+                <a href="index.html">Lộ trình học</a>
+                <a href="index.html#courses">Tất cả khóa học</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div style="margin-top: 2rem;">
+            <a href="#" onclick="history.back(); return false;" class="back-link">← Quay lại trang trước</a>
+        </div>
+
+        <section class="register-container">
+            <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem; text-align: center; background: var(--primary-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Phiếu Đăng Ký Tư Vấn Khóa Học</h1>
+            <p style="color: var(--text-secondary); text-align: center; margin-bottom: 2.5rem; font-size: 1.05rem;">Vui lòng điền đầy đủ thông tin bên dưới, đội ngũ tuyển sinh của chúng tôi sẽ liên hệ lại với bạn trong vòng 24 giờ làm việc.</p>
+
+            <div class="register-iframe-wrapper">
+                <iframe class="register-iframe" src="https://docs.google.com/forms/d/e/1FAIpQLSefzJv2U7AVKERzVFeUG3lrC931AWACpnU0Ft1_6irYwOBnpw/viewform?embedded=true" width="640" height="2050" frameborder="0" marginheight="0" marginwidth="0">Đang tải…</iframe>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© 2026 EXP Academy. Tất cả quyền được bảo lưu.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

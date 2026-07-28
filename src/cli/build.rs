@@ -96,5 +96,15 @@ pub async fn run(
         site.pages.len()
     );
 
+    // Run after_build hook
+    let mut registry = crate::core::plugin_system::PluginRegistry::new();
+    let hook_context = crate::core::plugin_system::HookContext {
+        output_dir: config.build.output_dir.clone(),
+        content_dir: "content".to_string(),
+        theme_dir: format!("themes/{}", config.build.theme),
+    };
+    registry.load_from_dir("plugins")?;
+    registry.execute_hook(crate::core::plugin_system::HookType::AfterBuild, &hook_context)?;
+
     Ok(())
 }

@@ -27,7 +27,7 @@
 
 ---
 
-![Version](https://img.shields.io/badge/version-0.3.4-blue)
+![Version](https://img.shields.io/badge/version-0.3.11-blue)
 ![Rust](https://img.shields.io/badge/rust-1.70+-orange)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
@@ -77,8 +77,16 @@ cargo build --release
 
 ### Tạo bài viết đầu tiên
 
+> 💡 **Mẹo chạy lệnh trên Windows:** Tại thư mục gốc dự án, bạn có thể gõ trực tiếp `explog` (CMD) hoặc `.\explog` (PowerShell) thay vì đường dẫn dài.
+
 ```bash
-# Thư mục làm việc: thư mục gốc dự án (nơi có explog.toml)
+# Windows CMD:
+explog new post my-first-post
+
+# Windows PowerShell:
+.\explog new post my-first-post
+
+# macOS/Linux:
 ./target/release/explog new post my-first-post
 ```
 
@@ -92,13 +100,11 @@ content/posts/my-first-post/
 ### Build & Xem trước
 
 ```bash
-# Thư mục làm việc: thư mục gốc dự án (nơi có explog.toml)
-
 # Build trang web
-./target/release/explog build
+explog build
 
 # Khởi động dev server với hot-reload
-./target/release/explog dev --port 3000
+explog dev --port 3000
 ```
 
 Mở `http://localhost:3000` trong trình duyệt.
@@ -121,6 +127,8 @@ explog/
 ├── plugins/             # Thư mục plugin
 ├── public/              # Output build (tự động tạo)
 ├── .cache/              # Cache build (tự động tạo)
+├── explog.bat           # Phím tắt chạy lệnh trên Windows CMD (tự động biên dịch)
+├── explog.ps1           # Phím tắt chạy lệnh trên Windows PowerShell (tự động biên dịch)
 └── explog.toml          # Cấu hình trang
 ```
 
@@ -129,31 +137,33 @@ explog/
 ## 💻 Lệnh CLI
 
 > **Quan trọng:** Tất cả lệnh phải chạy từ thư mục gốc dự án (nơi có `explog.toml`).
+>
+> 💡 *Trong hướng dẫn dưới đây, lệnh được viết mẫu là `explog <tham_số>`. Trên Windows PowerShell vui lòng dùng `.\explog`, trên macOS/Linux dùng `./target/release/explog`.*
 
 ### Lệnh Build
 
 ```bash
 # Build đầy đủ
-./target/release/explog build
+explog build
 
 # Buộc rebuild sạch (bỏ qua cache)
-./target/release/explog build --clean
+explog build --clean
 
 # Selective rebuild (chỉ rebuild nội dung cụ thể)
-./target/release/explog build --page page-slug
-./target/release/explog build --post post-slug
-./target/release/explog build --category category-name
-./target/release/explog build --tag tag-name
+explog build --page page-slug
+explog build --post post-slug
+explog build --category category-name
+explog build --tag tag-name
 ```
 
 ### Server phát triển
 
 ```bash
 # Khởi động dev server (cổng mặc định 8080)
-./target/release/explog dev
+explog dev
 
 # Cổng tùy chỉnh
-./target/release/explog dev --port 3000
+explog dev --port 3000
 ```
 
 Dev server:
@@ -165,33 +175,33 @@ Dev server:
 
 ```bash
 # Tạo bài viết mới
-./target/release/explog new post my-post-slug
+explog new post my-post-slug
 
 # Tạo trang mới
-./target/release/explog new page about
+explog new page about
 ```
 
 ### Quản lý Cache
 
 ```bash
 # Xóa cache build
-./target/release/explog clean
+explog clean
 ```
 
 ### Quản lý Plugin
 
 ```bash
 # Liệt kê plugin đã cài
-./target/release/explog plugin list
+explog plugin list
 
 # Hiển thị chi tiết plugin
-./target/release/explog plugin show plugin-name
+explog plugin show plugin-name
 
 # Tạo plugin mới
-./target/release/explog plugin new my-plugin
+explog plugin new my-plugin
 
 # Xóa plugin
-./target/release/explog plugin remove plugin-name
+explog plugin remove plugin-name
 ```
 
 ---

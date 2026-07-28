@@ -16,6 +16,8 @@ pub struct SiteConfig {
     pub cdn: CdnConfig,
     #[serde(default)]
     pub authors: HashMap<String, Author>,
+    #[serde(default)]
+    pub plugins: HashMap<String, PluginConfig>,
 }
 
 /// Navigation menu item
@@ -154,4 +156,11 @@ pub struct Tag {
     pub url: String,
     pub post_count: usize,
 }
+
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+pub struct PluginConfig {
+    #[serde(default = "default_true")]
+    pub enabled: bool,
+}
+
 

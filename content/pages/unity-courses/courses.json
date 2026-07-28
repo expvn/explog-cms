@@ -1,0 +1,571 @@
+[
+    {
+        "id": "csharp-fundamentals",
+        "title": "Lập trình C# cho Unity",
+        "proposed_title": "Lập trình C# cho Unity – Từ Zero đến nền tảng Game Developer",
+        "badge": "Nền Tảng",
+        "badge_class": "badge-csharp",
+        "accent_class": "csharp-accent",
+        "card_class": "card-csharp",
+        "goal": "Khóa học dành cho người chưa biết C# hoặc chỉ mới có kiến thức lập trình cơ bản. Học viên được học C# theo hướng thực hành và ứng dụng trực tiếp vào phát triển game Unity. Sau khóa học, học viên hiểu tư duy lập trình, đọc viết code C#, OOP, và xây dựng các hệ thống gameplay cơ bản.",
+        "duration": "16 buổi × 2 giờ",
+        "tuition_online": "2.500.000 – 3.500.000đ",
+        "tuition_offline": "4.000.000 – 5.500.000đ",
+        "level": "Cơ bản / Chuyển ngành",
+        "requirements": "Không yêu cầu kiến thức C#. Biết sử dụng máy tính cơ bản.",
+        "output": "Học viên có thể tự viết các chương trình C# cơ bản và xây dựng gameplay Unity ở mức nền tảng.",
+        "audiences": [
+            "Người chưa biết C#.",
+            "Người mới bắt đầu học lập trình game.",
+            "Sinh viên CNTT.",
+            "Người muốn chuyển sang lập trình game.",
+            "Người đã biết ngôn ngữ lập trình khác nhưng chưa biết C#."
+        ],
+        "syllabus": [
+            {
+                "title": "Phần 1 – Nền tảng lập trình C#",
+                "items": [
+                    "Biến và hằng số. Kiểu dữ liệu.",
+                    "Toán tử. Nhập xuất dữ liệu.",
+                    "Điều kiện. Vòng lặp.",
+                    "Hàm và phương thức.",
+                    "Array. List. Dictionary. Enum."
+                ]
+            },
+            {
+                "title": "Phần 2 – Lập trình hướng đối tượng",
+                "items": [
+                    "Class. Object. Constructor.",
+                    "Encapsulation. Inheritance.",
+                    "Polymorphism. Interface.",
+                    "Static. Struct."
+                ]
+            },
+            {
+                "title": "Phần 3 – C# nâng cao phục vụ Game Development",
+                "items": [
+                    "Reference và Value Type. Nullable cơ bản.",
+                    "Delegate. Event. Coroutine.",
+                    "Lambda. LINQ cơ bản.",
+                    "Exception. Debugging."
+                ]
+            },
+            {
+                "title": "Phần 4 – C# trong Unity",
+                "items": [
+                    "MonoBehaviour lifecycle (Awake, Start, Update, FixedUpdate).",
+                    "GameObject. Component. Transform.",
+                    "SerializeField. Instantiate. Destroy. GetComponent.",
+                    "SendMessage / Event. Scene Management.",
+                    "Input System."
+                ]
+            }
+        ]
+    },
+    {
+        "id": "visual-scripting",
+        "title": "Unity Visual Scripting",
+        "proposed_title": "Lập trình game không cần biết code – Unity Visual Scripting",
+        "badge": "Không Code",
+        "badge_class": "badge-visual",
+        "accent_class": "visual-accent",
+        "card_class": "card-visual",
+        "goal": "Giúp người chưa biết lập trình tạo gameplay bằng hệ thống Visual Scripting của Unity. Khóa học không yêu cầu học viên phải biết C#.",
+        "duration": "8 buổi × 2 giờ",
+        "tuition_online": "1.500.000 – 2.000.000đ",
+        "tuition_offline": "2.500.000 – 3.500.000đ",
+        "level": "Không yêu cầu lập trình",
+        "requirements": "Không yêu cầu C#. Không yêu cầu biết lập trình trước đó.",
+        "output": "Học viên có thể xây dựng gameplay đơn giản bằng Visual Scripting mà không cần viết C#.",
+        "audiences": [
+            "Người chưa biết lập trình.",
+            "Game Designer.",
+            "Artist.",
+            "Học sinh, sinh viên.",
+            "Người muốn thử sức với Game Development."
+        ],
+        "syllabus": [
+            {
+                "title": "Phần 1 - Làm quen Visual Scripting & Graph",
+                "items": [
+                    "Làm quen Visual Scripting. Graph.",
+                    "Event. Flow. Variables.",
+                    "Branch. Loop. Function."
+                ]
+            },
+            {
+                "title": "Phần 2 - Logic và Tương tác Vật lý",
+                "items": [
+                    "State. Input.",
+                    "Physics. Collision. Trigger."
+                ]
+            },
+            {
+                "title": "Phần 3 - Hoàn thiện UI & Đánh bóng",
+                "items": [
+                    "Animation. UI.",
+                    "Audio. Scene Management."
+                ]
+            }
+        ],
+        "project": {
+            "title": "Dự án Mini-Game Tốt Nghiệp",
+            "description": "Học viên xây dựng một mini-game đơn giản bằng Visual Scripting. Ví dụ:",
+            "items": [
+                "3D Coin Collector",
+                "Simple Platformer",
+                "Mini Obstacle Course"
+            ]
+        }
+    },
+    {
+        "id": "platformer-2d",
+        "title": "Lập trình game Platformer 2D",
+        "proposed_title": "Lập trình game Platformer 2D hoàn chỉnh",
+        "badge": "Nhánh 2D",
+        "badge_class": "badge-2d",
+        "accent_class": "accent-2d",
+        "card_class": "card-2d",
+        "goal": "Học viên học cách xây dựng một game Platformer 2D hoàn chỉnh ở mức cơ bản thông qua thực hành trực tiếp. Game tương tự Mario hoặc Contra phiên bản đơn giản.",
+        "duration": "12 buổi × 2 giờ",
+        "tuition_online": "2.500.000 – 3.500.000đ",
+        "tuition_offline": "4.000.000 – 5.000.000đ",
+        "level": "Cần nền tảng C# cơ bản",
+        "requirements": "Người đã hoàn thành khóa C# cho Unity hoặc có kiến thức tương đương về C# và Unity.",
+        "output": "Học viên hoàn thành một game Platformer 2D cơ bản và hiểu quy trình xây dựng gameplay 2D trong Unity.",
+        "audiences": [
+            "Người đã học qua lập trình C# cơ bản.",
+            "Học viên muốn phát triển game theo hướng 2D truyền thống.",
+            "Indie Game Developer cần củng cố kiến thức làm game đi cảnh."
+        ],
+        "syllabus": [
+            {
+                "title": "Phần 1 – Xây dựng nền tảng game",
+                "items": [
+                    "Thiết lập project. Sprite. Tilemap.",
+                    "Physics 2D. Rigidbody2D. Collider2D."
+                ]
+            },
+            {
+                "title": "Phần 2 – Player Controller & Animation",
+                "items": [
+                    "Player Controller. Movement. Jump. Double Jump.",
+                    "Ground Check. Animation. Flip Character."
+                ]
+            },
+            {
+                "title": "Phần 3 – Cơ chế Gameplay & AI Kẻ địch",
+                "items": [
+                    "Enemy. Enemy AI đơn giản.",
+                    "Attack. Damage. Health.",
+                    "Death. Respawn. Checkpoint."
+                ]
+            },
+            {
+                "title": "Phần 4 – Hệ thống phụ trợ (Game System)",
+                "items": [
+                    "Collectible. Coin. Score. Moving Platform.",
+                    "Camera. Level Design. Scene Management."
+                ]
+            },
+            {
+                "title": "Phần 5 – Đóng gói & Hoàn thiện",
+                "items": [
+                    "UI. Audio. Particle Effect.",
+                    "Main Menu. Win / Lose. Build game."
+                ]
+            }
+        ]
+    },
+    {
+        "id": "rpg-2d",
+        "title": "Lập trình game RPG 2D",
+        "proposed_title": "Lập trình game RPG 2D chuyên nghiệp",
+        "badge": "Nhánh 2D",
+        "badge_class": "badge-2d",
+        "accent_class": "accent-2d",
+        "card_class": "card-2d",
+        "goal": "Học viên xây dựng một game RPG 2D có nhiều hệ thống gameplay và học cách tổ chức một project Unity lớn hơn.",
+        "duration": "20 buổi × 2–2,5 giờ",
+        "tuition_online": "4.000.000 – 5.500.000đ",
+        "tuition_offline": "6.000.000 – 8.000.000đ",
+        "level": "Yêu cầu hoàn thành Khóa 3",
+        "requirements": "Người đã hoàn thành khóa C# cho Unity và Platformer 2D, hoặc có kiến thức tương đương.",
+        "output": "Học viên có khả năng xây dựng một game RPG 2D có nhiều hệ thống gameplay và biết cách tổ chức project lớn hơn.",
+        "audiences": [
+            "Người muốn học cách tổ chức dự án game quy mô lớn.",
+            "Lập trình viên muốn xây dựng các hệ thống game nhập vai phức tạp.",
+            "Học viên định hướng làm game chuyên nghiệp."
+        ],
+        "syllabus": [
+            {
+                "title": "Phần 1 - Hệ thống Player & Enemy",
+                "items": [
+                    "Player Controller. Combat. Health.",
+                    "Stats. Level. Experience.",
+                    "Enemy AI. Enemy State. Combat. Damage. Death. Loot."
+                ]
+            },
+            {
+                "title": "Phần 2 - Túi đồ & Trang bị (Inventory System)",
+                "items": [
+                    "Item. Item Database. Inventory.",
+                    "Equipment. Consumable."
+                ]
+            },
+            {
+                "title": "Phần 3 - Tương tác NPC, Hội thoại & Cửa hàng",
+                "items": [
+                    "NPC Interaction. Dialogue System. Dialogue UI.",
+                    "Quest. Quest Objective. Quest State. Quest Reward.",
+                    "Shop System. Buy. Sell. Currency."
+                ]
+            },
+            {
+                "title": "Phần 4 - Kiến trúc Game & Cơ chế lưu trữ",
+                "items": [
+                    "Game Architecture: ScriptableObject, Event System, Interface, State Machine cơ bản, Data-driven Design.",
+                    "Save System: Save Game, Load Game, Player Data, Game Data."
+                ]
+            },
+            {
+                "title": "Phần 5 - Giao diện HUD & UI nâng cao",
+                "items": [
+                    "HUD. Inventory UI. Equipment UI.",
+                    "Quest UI. Dialogue UI. Shop UI."
+                ]
+            }
+        ]
+    },
+    {
+        "id": "basic-3d",
+        "title": "Lập trình game 3D Cơ bản",
+        "proposed_title": "Lập trình game 3D Cơ bản đầu tiên",
+        "badge": "Nhánh 3D",
+        "badge_class": "badge-3d",
+        "accent_class": "accent-3d",
+        "card_class": "card-3d",
+        "goal": "Giúp học viên xây dựng game 3D đầu tiên mà không cần trải qua lộ trình 2D. Làm quen với không gian 3 chiều, camera xoay, ánh sáng và vật lý 3D.",
+        "duration": "14 buổi × 2 giờ",
+        "tuition_online": "3.000.000 – 4.000.000đ",
+        "tuition_offline": "5.000.000 – 6.500.000đ",
+        "level": "Cần nền tảng C# cơ bản",
+        "requirements": "Người đã hoàn thành khóa C# cho Unity hoặc tương đương.",
+        "output": "Học viên hoàn thành một game 3D cơ bản và có nền tảng để tiếp tục học 3D Advanced.",
+        "audiences": [
+            "Người muốn tập trung trực tiếp vào phát triển game 3D.",
+            "Người muốn bỏ qua nhánh 2D.",
+            "Nhà phát triển game muốn chuyển từ 2D sang không gian 3D."
+        ],
+        "syllabus": [
+            {
+                "title": "Phần 1 - Nền tảng không gian 3D (3D Foundation)",
+                "items": [
+                    "3D Coordinate. Transform. Vector. Quaternion cơ bản.",
+                    "Mesh. Material. Lighting. Camera."
+                ]
+            },
+            {
+                "title": "Phần 2 - Điều khiển nhân vật 3D (Player)",
+                "items": [
+                    "3D Character Controller. Movement. Jump.",
+                    "Camera. Animation."
+                ]
+            },
+            {
+                "title": "Phần 3 - Cơ chế Gameplay & Vật lý 3D",
+                "items": [
+                    "Physics. Rigidbody. Collider. Trigger.",
+                    "Collectible. Enemy. Enemy AI đơn giản.",
+                    "Attack. Health. Damage."
+                ]
+            },
+            {
+                "title": "Phần 4 - Hệ thống Game & Hoàn thiện",
+                "items": [
+                    "UI. Score. Audio. Particle.",
+                    "Scene Management. Win / Lose."
+                ]
+            }
+        ]
+    },
+    {
+        "id": "advanced-3d",
+        "title": "Lập trình game 3D Nâng cao",
+        "proposed_title": "Lập trình game 3D Nâng cao – Xây dựng game RPG 3D",
+        "badge": "Nhánh 3D",
+        "badge_class": "badge-3d",
+        "accent_class": "accent-3d",
+        "card_class": "card-3d",
+        "goal": "Xây dựng game RPG 3D góc nhìn thứ ba hoàn chỉnh. Khóa học thiết kế 2 lộ trình đầu vào linh hoạt cho học viên đã học hoặc chưa học qua khóa 3D Cơ bản.",
+        "duration": "24 buổi (Đã học 3D cơ bản) / 26 buổi (Bỏ qua 3D cơ bản)",
+        "tuition_online": "5.000.000 – 7.000.000đ (Lộ trình A) / 5.500.000 – 7.500.000đ (Lộ trình B)",
+        "tuition_offline": "8.000.000 – 10.000.000đ (Lộ trình A) / 9.000.000 – 11.000.000đ (Lộ trình B)",
+        "level": "Đã học 3D cơ bản / 2D",
+        "requirements": "Lộ trình A: Đã hoàn thành khóa 3D cơ bản. Lộ trình B: Đã hoàn thành 2 khóa 2D (Platformer & RPG), sẽ học bổ sung 3D Foundation trong 2 buổi.",
+        "output": "Học viên có khả năng xây dựng một game RPG 3D có nhiều hệ thống gameplay phức tạp, AI di chuyển nâng cao và kiến trúc dự án lớn.",
+        "audiences": [
+            "Người đã hoàn thành khóa 3D cơ bản và muốn nâng cao trình độ.",
+            "Học viên nhánh 2D muốn nâng cấp lên 3D chuyên sâu.",
+            "Nhà phát triển game muốn lập trình các dòng game 3D Action/RPG."
+        ],
+        "syllabus": [
+            {
+                "title": "[Bổ trợ Lộ trình B] 3D Foundation bổ sung (2 buổi)",
+                "items": [
+                    "Buổi 1: 3D Coordinate System, Vector 3D, Transform, Rotation, Quaternion, Mesh, Material, Lighting, Camera.",
+                    "Buổi 2: Rigidbody, Collider, Physics 3D, Character Controller, Animation 3D, Animator, NavMesh, Raycast."
+                ]
+            },
+            {
+                "title": "Phần 1 - Player & Combat",
+                "items": [
+                    "Third-person Controller. Camera. Movement. Combat. Animation. Character State.",
+                    "Melee Combat. Weapon. Damage. Health. Skill."
+                ]
+            },
+            {
+                "title": "Phần 2 - Trí tuệ nhân tạo (Advanced Enemy AI)",
+                "items": [
+                    "AI. NavMesh. Patrol. Chase. Attack. Flee. State Machine."
+                ]
+            },
+            {
+                "title": "Phần 3 - Hệ thống RPG, NPC & Cửa hàng",
+                "items": [
+                    "Stats. Level. Experience. Inventory. Equipment. Item. Loot.",
+                    "Interaction. Dialogue. Quest (Objective, Reward). Shop (Buy, Sell, Currency)."
+                ]
+            },
+            {
+                "title": "Phần 4 - Lưu trữ dữ liệu & Kiến trúc nâng cao",
+                "items": [
+                    "Save & Load Player Data / Game Data.",
+                    "ScriptableObject. Interface. Event. State Machine. Data-driven Design."
+                ]
+            },
+            {
+                "title": "Phần 5 - Thiết kế giao diện chuyên nghiệp",
+                "items": [
+                    "HUD. Inventory UI. Equipment UI. Quest UI. Dialogue UI. Shop UI."
+                ]
+            }
+        ]
+    },
+    {
+        "id": "game-testing-qa",
+        "title": "Kiểm thử game & QA Cơ bản",
+        "proposed_title": "Kiểm thử game & QA cơ bản trong Unity",
+        "badge": "QA & Kiểm thử",
+        "badge_class": "badge-qa",
+        "accent_class": "qa-accent",
+        "card_class": "card-qa",
+        "goal": "Giúp học viên hiểu quy trình kiểm thử phần mềm trong bối cảnh phát triển game và có thể thực hiện kiểm thử cơ bản đối với một sản phẩm game Unity.",
+        "duration": "8 buổi × 2 giờ",
+        "tuition_online": "1.500.000 – 2.000.000đ",
+        "tuition_offline": "2.500.000 – 3.500.000đ",
+        "level": "Nền tảng kiểm thử game",
+        "requirements": "Biết sử dụng máy tính cơ bản. Có tư duy logic tốt.",
+        "output": "Học viên hiểu quy trình kiểm thử và biết viết test case/bug report cho game Unity.",
+        "audiences": [
+            "Người muốn gia nhập ngành game ở vị trí QA/QC Tester.",
+            "Lập trình viên muốn nâng cao kỹ năng kiểm tra và gỡ lỗi code.",
+            "Người quản lý dự án game cần kiểm soát chất lượng đầu ra."
+        ],
+        "syllabus": [
+            {
+                "title": "Phần 1 - Kiến thức nền tảng về QA & QC",
+                "items": [
+                    "Game Testing. QA. QC.",
+                    "Test Plan. Test Scenario. Test Case."
+                ]
+            },
+            {
+                "title": "Phần 2 - Các loại kiểm thử thông dụng",
+                "items": [
+                    "Functional, Gameplay, UI, Acceptance, Integration Testing.",
+                    "Regression, Compatibility, Performance Testing cơ bản. Unit Testing."
+                ]
+            },
+            {
+                "title": "Phần 3 - Unity Test Framework",
+                "items": [
+                    "Test cơ bản. Edit Mode Test. Play Mode Test."
+                ]
+            },
+            {
+                "title": "Phần 4 - Quản lý lỗi (Bug Management)",
+                "items": [
+                    "Bug Report. Severity. Priority. Reproduce Bug.",
+                    "Retest. Bug Lifecycle."
+                ]
+            }
+        ],
+        "project": {
+            "title": "Dự án Thực tế",
+            "description": "Kiểm thử một game Unity có sẵn. Quy trình thực hiện:",
+            "items": [
+                "Test -> Tìm Bug -> Viết Test Case -> Bug Report -> Developer Fix -> Retest -> Regression Test."
+            ]
+        }
+    },
+    {
+        "id": "multiplayer-shared",
+        "title": "Photon Fusion 2 - Shared Mode",
+        "proposed_title": "Lập trình game online cơ bản với Photon Fusion 2 - Shared Mode",
+        "badge": "Multiplayer",
+        "badge_class": "badge-csharp",
+        "accent_class": "csharp-accent",
+        "card_class": "card-csharp",
+        "goal": "Giúp học viên bước đầu xây dựng game Multiplayer với Photon Fusion 2 thông qua Shared Mode.",
+        "duration": "10 buổi × 2 giờ",
+        "tuition_online": "2.500.000 – 3.500.000đ",
+        "tuition_offline": "4.000.000 – 5.000.000đ",
+        "level": "Yêu cầu có nền tảng Unity 3D",
+        "requirements": "Đã học C# cho Unity, có kiến thức Unity cơ bản. Nên học qua khóa 3D cơ bản hoặc tương đương.",
+        "output": "Học viên bước đầu xây dựng game nhiều người chơi trên mạng thông qua Shared Mode.",
+        "audiences": [
+            "Lập trình viên muốn học làm game online.",
+            "Học viên đã nắm vững Unity 3D và muốn phát triển lên Multiplayer.",
+            "Nhà phát triển game indie muốn tích hợp tính năng kết nối mạng."
+        ],
+        "syllabus": [
+            {
+                "title": "Phần 1 - Tổng quan Multiplayer & Photon Fusion 2",
+                "items": [
+                    "Multiplayer Game. Network Architecture. Photon Fusion 2.",
+                    "NetworkRunner. NetworkObject. NetworkBehaviour."
+                ]
+            },
+            {
+                "title": "Phần 2 - Kết nối mạng & Đồng bộ hóa",
+                "items": [
+                    "Networked Properties. Player Join / Leave. Spawn. Despawn.",
+                    "RPC. Network Transform. Network Input."
+                ]
+            },
+            {
+                "title": "Phần 3 - Trạng thái & Quyền hạn (Authority)",
+                "items": [
+                    "Session. Lobby. Connection.",
+                    "Synchronization. Authority cơ bản."
+                ]
+            }
+        ],
+        "project": {
+            "title": "Multiplayer 3D Mini Game",
+            "description": "Học viên tự tay xây dựng một trong hai sản phẩm:",
+            "items": [
+                "Multiplayer Coin Collector",
+                "Multiplayer Survival Arena"
+            ]
+        }
+    },
+    {
+        "id": "multiplayer-host-server",
+        "title": "Photon Fusion 2 - Host & Server",
+        "proposed_title": "Lập trình game online nâng cao với Photon Fusion 2 - Host Mode & Dedicated Server",
+        "badge": "Multiplayer",
+        "badge_class": "badge-csharp",
+        "accent_class": "csharp-accent",
+        "card_class": "card-csharp",
+        "goal": "Giúp học viên hiểu kiến trúc Multiplayer nâng cao và triển khai game theo mô hình Host và Server.",
+        "duration": "14 buổi × 2–2,5 giờ",
+        "tuition_online": "4.000.000 – 5.500.000đ",
+        "tuition_offline": "6.000.000 – 8.000.000đ",
+        "level": "Yêu cầu hoàn thành Khóa 8",
+        "requirements": "Đã hoàn thành khóa Photon Fusion 2 – Shared Mode hoặc có kiến thức tương đương.",
+        "output": "Học viên hiểu kiến trúc Multiplayer nâng cao và triển khai game theo mô hình Host và Server.",
+        "audiences": [
+            "Lập trình viên Multiplayer muốn làm chủ kiến trúc Server-Authoritative.",
+            "Nhà phát triển game trực tuyến cần kỹ năng lập trình chống hack/cheat.",
+            "Học viên định hướng chuyên môn hóa vào Network/Backend Game Developer."
+        ],
+        "syllabus": [
+            {
+                "title": "Phần 1 - Networking Architecture & Authority",
+                "items": [
+                    "Client. Host. Server.",
+                    "Authority. State Authority. Input Authority."
+                ]
+            },
+            {
+                "title": "Phần 2 - Host Mode & Advanced Networking",
+                "items": [
+                    "Host. Client. Synchronization. Network State.",
+                    "Prediction. Rollback. Resimulation. Lag. Latency. Tick Rate."
+                ]
+            },
+            {
+                "title": "Phần 3 - Dedicated Server & Deployment",
+                "items": [
+                    "Server Mode. Dedicated Server. Headless Build.",
+                    "Server Deployment. Server Management cơ bản."
+                ]
+            }
+        ],
+        "project": {
+            "title": "Dự án Game Multiplayer Host/Server",
+            "description": "Xây dựng trò chơi Multiplayer sử dụng Host Mode hoặc Dedicated Server để kiểm soát an toàn logic mạng.",
+            "items": []
+        }
+    },
+    {
+        "id": "project-management",
+        "title": "Quản lý dự án & Quy trình",
+        "proposed_title": "Quản lý dự án & Quy trình sản xuất game",
+        "badge": "Quản lý",
+        "badge_class": "badge-pm",
+        "accent_class": "pm-accent",
+        "card_class": "card-pm",
+        "goal": "Giúp học viên hiểu và thực hành quy trình phát triển một dự án game từ ý tưởng đến sản phẩm hoàn chỉnh.",
+        "duration": "8 buổi × 2 giờ",
+        "tuition_online": "1.500.000 – 2.500.000đ",
+        "tuition_offline": "2.500.000 – 4.000.000đ",
+        "level": "Quản lý dự án thực chiến",
+        "requirements": "Nhiệt huyết và có tinh thần làm việc nhóm tốt.",
+        "output": "Học viên hiểu cách phối hợp nhóm, lập kế hoạch, sử dụng Git và quản lý dự án game chuyên nghiệp.",
+        "audiences": [
+            "Người muốn làm Game Producer, Project Manager trong dự án game.",
+            "Học viên muốn tự lập nhóm làm game indie.",
+            "Lập trình viên, Artist cần nắm vững quy trình làm việc nhóm chuyên nghiệp."
+        ],
+        "syllabus": [
+            {
+                "title": "Phần 1 - Game Design Document (GDD)",
+                "items": [
+                    "Game Idea. Game Concept. Game Design Document.",
+                    "Core Gameplay. Game Mechanic. Game Loop."
+                ]
+            },
+            {
+                "title": "Phần 2 - Project Management (Agile/Scrum)",
+                "items": [
+                    "Task Breakdown. Kanban. Sprint.",
+                    "Milestone. Deadline. Task Estimation. Team Assignment."
+                ]
+            },
+            {
+                "title": "Phần 3 - Version Control (Git & GitHub)",
+                "items": [
+                    "Git. GitHub. Repository. Commit. Branch. Merge. Pull Request. Conflict.",
+                    "Git Workflow cho Game Team."
+                ]
+            },
+            {
+                "title": "Phần 4 - Production & Documentation",
+                "items": [
+                    "Prototype. Pre-production. Production. Testing. Polish. Release.",
+                    "GDD. Technical Documentation. Asset List. Test Case. Bug Report. Final Report."
+                ]
+            }
+        ],
+        "project": {
+            "title": "Dự án Lập Kế Hoạch Game",
+            "description": "Học viên lập kế hoạch cho một game hoàn chỉnh với quy trình:",
+            "items": [
+                "Game Idea -> GDD -> Task Breakdown -> Trello -> Git Repository -> Development Plan -> Milestone -> Testing Plan -> Final Report."
+            ]
+        }
+    }
+]

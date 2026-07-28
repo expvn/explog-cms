@@ -110,6 +110,16 @@ pub async fn build_site(config: &SiteConfig, force_clean: bool) -> Result<Site> 
     let pages = content::load_pages(&config.content.pages_dir)?;
     info!("Loaded {} pages", pages.len());
 
+    // Initialize plugin system and run after_content_load hook
+    let mut registry = crate::core::plugin_system::PluginRegistry::new();
+    let hook_context = crate::core::plugin_system::HookContext {
+        output_dir: config.build.output_dir.clone(),
+        content_dir: "content".to_string(),
+        theme_dir: format!("themes/{}", config.build.theme),
+    };
+    registry.load_from_dir("plugins")?;
+    registry.execute_hook(crate::core::plugin_system::HookType::AfterContentLoad, &hook_context)?;
+
     // Validate assets if strict mode is enabled
     if config.build.strict_assets {
         info!("Validating assets (strict mode)...");
@@ -157,6 +167,9 @@ pub async fn build_site(config: &SiteConfig, force_clean: bool) -> Result<Site> 
 
     // Create output directory
     fs::create_dir_all(output_dir)?;
+
+    // Run before_render hook
+    registry.execute_hook(crate::core::plugin_system::HookType::BeforeRender, &hook_context)?;
 
     // Stats
     let mut posts_rendered = 0;

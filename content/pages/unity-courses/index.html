@@ -1,0 +1,288 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Khóa Học Lập Trình Game Unity - EXP Academy</title>
+    <meta name="description" content="Lộ trình đào tạo lập trình game Unity chuyên nghiệp từ cơ bản đến nâng cao. Nhánh 2D, 3D, Không code, và Multiplayer.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="container nav-container">
+            <a href="/" class="logo">EXP Academy</a>
+            <nav class="nav-links">
+                <a href="/">Trang chủ Blog</a>
+                <a href="#roadmap">Lộ trình học</a>
+                <a href="#courses">Danh sách khóa học</a>
+                <a href="#cta" class="nav-btn">Đăng ký tư vấn</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <span class="hero-tag">ĐÀO TẠO CHUẨN DOANH NGHIỆP</span>
+                <h1>Hệ Thống Khóa Học Lập Trình Game Unity</h1>
+                <p>Lộ trình đào tạo toàn diện được thiết kế từ căn bản đến nâng cao. Phát triển tư duy lập trình thực chiến, tự tay xây dựng game hoàn chỉnh và sẵn sàng gia nhập ngành công nghiệp game.</p>
+                <div class="hero-btns">
+                    <a href="#roadmap" class="btn btn-primary">Xem lộ trình đào tạo</a>
+                    <a href="#courses" class="btn btn-secondary">Khám phá các khóa học</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="container">
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-number">10</div>
+                    <div class="stat-label">Khóa Học Chuyên Sâu</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">04</div>
+                    <div class="stat-label">Nhánh Đào Tạo Thực Tế</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Học Viên Có Game Thực Tế</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">C# & Unity</div>
+                    <div class="stat-label">Công Nghệ Tiêu Chuẩn</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Roadmap Section -->
+        <section id="roadmap" class="container" style="margin-bottom: 6rem;">
+            <div class="section-title-wrap">
+                <h2 class="section-title">Lộ Trình Học Tương Tác</h2>
+                <p class="section-subtitle">Nhấp vào một hộp khóa học trong sơ đồ dưới đây để xem chi tiết chương trình học, mục tiêu và học phí.</p>
+            </div>
+
+            <div class="roadmap-container">
+                <!-- SVG Interactive Roadmap -->
+                <div class="roadmap-svg-wrapper">
+                    <svg viewBox="0 0 1000 750" class="roadmap-svg" width="100%">
+                        <!-- Definitions for gradients/glows -->
+                        <defs>
+                            <filter id="glow-csharp" x="-20%" y="-20%" width="140%" height="140%">
+                                <feGaussianBlur stdDeviation="5" result="blur" />
+                                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                            </filter>
+                            <linearGradient id="grad-line" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#6366f1" />
+                                <stop offset="100%" stop-color="#a855f7" />
+                            </linearGradient>
+                        </defs>
+
+                        <!-- Connection lines -->
+                        <!-- Root to branches -->
+                        <path d="M 500,65 L 500,90" class="roadmap-svg-line" />
+                        <path d="M 500,90 L 250,90 L 250,115" class="roadmap-svg-line" />
+                        <path d="M 500,90 L 650,90 L 650,115" class="roadmap-svg-line" />
+                        
+                        <!-- Visual scripting branch -->
+                        <path d="M 250,165 L 250,215" class="roadmap-svg-line line-visual" />
+                        
+                        <!-- C# branch -->
+                        <path d="M 650,165 L 650,215" class="roadmap-svg-line line-csharp" />
+                        
+                        <!-- C# sub-branches -->
+                        <path d="M 650,265 L 650,290" class="roadmap-svg-line line-csharp" />
+                        <path d="M 650,290 L 500,290 L 500,315" class="roadmap-svg-line line-2d" />
+                        <path d="M 650,290 L 800,290 L 800,315" class="roadmap-svg-line line-3d" />
+                        
+                        <!-- 2D Branch -->
+                        <path d="M 500,365 L 500,415" class="roadmap-svg-line line-2d" />
+                        <path d="M 500,465 L 500,515" class="roadmap-svg-line line-2d" />
+                        <path d="M 500,565 L 500,575" class="roadmap-svg-line line-2d" />
+                        
+                        <!-- 3D Branch -->
+                        <path d="M 800,365 L 800,415" class="roadmap-svg-line line-3d" />
+                        <path d="M 800,465 L 800,515" class="roadmap-svg-line line-3d" />
+                        <path d="M 800,565 L 800,575" class="roadmap-svg-line line-3d" />
+                        
+                        <!-- Visual Scripting to final tracks -->
+                        <path d="M 250,265 L 250,575" class="roadmap-svg-line line-visual" />
+
+                        <!-- Horizontal Merge Line at Y=575 -->
+                        <path d="M 200,575 L 800,575" class="roadmap-svg-line" />
+
+                        <!-- Out flow from Y=575 merge line to final tracks -->
+                        <path d="M 200,575 L 200,600" class="roadmap-svg-line line-qa" />
+                        <path d="M 500,575 L 500,600" class="roadmap-svg-line line-csharp" />
+                        <path d="M 800,575 L 800,600" class="roadmap-svg-line line-pm" />
+
+                        <!-- Multiplayer Shared/Host splits (T-junction under Online Game) -->
+                        <path d="M 500,650 L 500,665" class="roadmap-svg-line line-csharp" />
+                        <path d="M 500,665 L 370,665 L 370,680" class="roadmap-svg-line line-csharp" />
+                        <path d="M 500,665 L 630,665 L 630,680" class="roadmap-svg-line line-csharp" />
+
+                        <!-- NODES -->
+                        
+                        <!-- Root Node -->
+                        <g transform="translate(400, 15)">
+                            <rect width="200" height="50" rx="10" fill="#111827" stroke="url(#grad-line)" stroke-width="2" />
+                            <text x="100" y="30" fill="#ffffff" font-size="12" font-family="'Outfit', sans-serif" font-weight="700" text-anchor="middle">UNITY GAME DEVELOPMENT</text>
+                        </g>
+
+                        <!-- Branch 1 Label -->
+                        <g transform="translate(100, 115)">
+                            <rect width="200" height="50" rx="8" fill="#1f2937" stroke="rgba(255,255,255,0.1)" stroke-width="1" />
+                            <text x="100" y="30" fill="#9ca3af" font-size="11" font-family="'Outfit', sans-serif" font-weight="600" text-anchor="middle">HƯỚNG KHÔNG CẦN CODE</text>
+                        </g>
+                        
+                        <!-- Branch 2 Label -->
+                        <g transform="translate(550, 115)">
+                            <rect width="200" height="50" rx="8" fill="#1f2937" stroke="rgba(255,255,255,0.1)" stroke-width="1" />
+                            <text x="100" y="30" fill="#9ca3af" font-size="11" font-family="'Outfit', sans-serif" font-weight="600" text-anchor="middle">HƯỚNG LẬP TRÌNH C#</text>
+                        </g>
+
+                        <!-- KHÓA 2: Visual Scripting -->
+                        <a href="visual-scripting.html">
+                            <g transform="translate(75, 215)" class="roadmap-node-g" data-course-id="visual">
+                                <rect width="250" height="50" rx="8" fill="#111827" stroke="#8b5cf6" stroke-width="2" />
+                                <text x="125" y="22" fill="#a78bfa" font-size="10" font-family="'Inter', sans-serif" font-weight="700" text-anchor="middle">KHÓA 2</text>
+                                <text x="125" y="38" fill="#ffffff" font-size="13" font-family="'Outfit', sans-serif" font-weight="600" text-anchor="middle">Unity Visual Scripting</text>
+                            </g>
+                        </a>
+
+                        <!-- KHÓA 1: C# cho Unity -->
+                        <a href="csharp-fundamentals.html">
+                            <g transform="translate(525, 215)" class="roadmap-node-g" data-course-id="csharp">
+                                <rect width="250" height="50" rx="8" fill="#111827" stroke="#2563eb" stroke-width="2" />
+                                <text x="125" y="22" fill="#60a5fa" font-size="10" font-family="'Inter', sans-serif" font-weight="700" text-anchor="middle">KHÓA 1</text>
+                                <text x="125" y="38" fill="#ffffff" font-size="13" font-family="'Outfit', sans-serif" font-weight="600" text-anchor="middle">Lập trình C# cho Unity</text>
+                            </g>
+                        </a>
+
+                        <!-- Branch 2D Label -->
+                        <g transform="translate(400, 315)">
+                            <rect width="200" height="50" rx="8" fill="#1f2937" stroke="rgba(255,255,255,0.1)" stroke-width="1" />
+                            <text x="100" y="30" fill="#10b981" font-size="11" font-family="'Outfit', sans-serif" font-weight="600" text-anchor="middle">NHÁNH 2D</text>
+                        </g>
+
+                        <!-- Branch 3D Label -->
+                        <g transform="translate(700, 315)">
+                            <rect width="200" height="50" rx="8" fill="#1f2937" stroke="rgba(255,255,255,0.1)" stroke-width="1" />
+                            <text x="100" y="30" fill="#ef4444" font-size="11" font-family="'Outfit', sans-serif" font-weight="600" text-anchor="middle">NHÁNH 3D</text>
+                        </g>
+
+                        <!-- KHÓA 3: Platformer 2D -->
+                        <a href="platformer-2d.html">
+                            <g transform="translate(375, 415)" class="roadmap-node-g" data-course-id="2d">
+                                <rect width="250" height="50" rx="8" fill="#111827" stroke="#10b981" stroke-width="2" />
+                                <text x="125" y="22" fill="#34d399" font-size="10" font-family="'Inter', sans-serif" font-weight="700" text-anchor="middle">KHÓA 3</text>
+                                <text x="125" y="38" fill="#ffffff" font-size="13" font-family="'Outfit', sans-serif" font-weight="600" text-anchor="middle">Lập trình game Platformer 2D</text>
+                            </g>
+                        </a>
+
+                        <!-- KHÓA 4: RPG 2D -->
+                        <a href="rpg-2d.html">
+                            <g transform="translate(375, 515)" class="roadmap-node-g" data-course-id="2d">
+                                <rect width="250" height="50" rx="8" fill="#111827" stroke="#10b981" stroke-width="2" />
+                                <text x="125" y="22" fill="#34d399" font-size="10" font-family="'Inter', sans-serif" font-weight="700" text-anchor="middle">KHÓA 4</text>
+                                <text x="125" y="38" fill="#ffffff" font-size="13" font-family="'Outfit', sans-serif" font-weight="600" text-anchor="middle">Lập trình game RPG 2D</text>
+                            </g>
+                        </a>
+
+                        <!-- KHÓA 5: 3D Cơ Bản -->
+                        <a href="basic-3d.html">
+                            <g transform="translate(675, 415)" class="roadmap-node-g" data-course-id="3d">
+                                <rect width="250" height="50" rx="8" fill="#111827" stroke="#ef4444" stroke-width="2" />
+                                <text x="125" y="22" fill="#f87171" font-size="10" font-family="'Inter', sans-serif" font-weight="700" text-anchor="middle">KHÓA 5</text>
+                                <text x="125" y="38" fill="#ffffff" font-size="13" font-family="'Outfit', sans-serif" font-weight="600" text-anchor="middle">Lập trình game 3D Cơ bản</text>
+                            </g>
+                        </a>
+
+                        <!-- KHÓA 6: 3D Nâng Cao -->
+                        <a href="advanced-3d.html">
+                            <g transform="translate(675, 515)" class="roadmap-node-g" data-course-id="3d">
+                                <rect width="250" height="50" rx="8" fill="#111827" stroke="#ef4444" stroke-width="2" />
+                                <text x="125" y="22" fill="#f87171" font-size="10" font-family="'Inter', sans-serif" font-weight="700" text-anchor="middle">KHÓA 6</text>
+                                <text x="125" y="38" fill="#ffffff" font-size="13" font-family="'Outfit', sans-serif" font-weight="600" text-anchor="middle">Lập trình game 3D Nâng cao</text>
+                            </g>
+                        </a>
+
+                        <!-- KHÓA 7: Testing & QA -->
+                        <a href="game-testing-qa.html">
+                            <g transform="translate(80, 600)" class="roadmap-node-g" data-course-id="qa">
+                                <rect width="240" height="50" rx="8" fill="#111827" stroke="#f59e0b" stroke-width="2" />
+                                <text x="120" y="22" fill="#fbbf24" font-size="10" font-family="'Inter', sans-serif" font-weight="700" text-anchor="middle">KHÓA 7</text>
+                                <text x="120" y="38" fill="#ffffff" font-size="13" font-family="'Outfit', sans-serif" font-weight="600" text-anchor="middle">Kiểm thử game & QA Cơ bản</text>
+                            </g>
+                        </a>
+
+                        <!-- Parent Node for Online branches: ONLINE GAME -->
+                        <g transform="translate(380, 600)">
+                            <rect width="240" height="50" rx="8" fill="#1f2937" stroke="#2563eb" stroke-width="1.5" />
+                            <text x="120" y="30" fill="#ffffff" font-size="12" font-family="'Outfit', sans-serif" font-weight="700" text-anchor="middle">ONLINE GAME (FUSION 2)</text>
+                        </g>
+
+                        <!-- KHÓA 10: Project Management -->
+                        <a href="project-management.html">
+                            <g transform="translate(680, 600)" class="roadmap-node-g" data-course-id="pm">
+                                <rect width="240" height="50" rx="8" fill="#111827" stroke="#6366f1" stroke-width="2" />
+                                <text x="120" y="22" fill="#a5b4fc" font-size="10" font-family="'Inter', sans-serif" font-weight="700" text-anchor="middle">KHÓA 10</text>
+                                <text x="120" y="38" fill="#ffffff" font-size="12" font-family="'Outfit', sans-serif" font-weight="600" text-anchor="middle">Quản lý dự án & Quy trình</text>
+                            </g>
+                        </a>
+
+                        <!-- KHÓA 8: Online Shared Mode -->
+                        <a href="multiplayer-shared.html">
+                            <g transform="translate(260, 680)" class="roadmap-node-g" data-course-id="csharp">
+                                <rect width="220" height="50" rx="8" fill="#111827" stroke="#2563eb" stroke-width="2" />
+                                <text x="110" y="22" fill="#60a5fa" font-size="10" font-family="'Inter', sans-serif" font-weight="700" text-anchor="middle">KHÓA 8</text>
+                                <text x="110" y="38" fill="#ffffff" font-size="11" font-family="'Outfit', sans-serif" font-weight="600" text-anchor="middle">Photon Fusion 2: Shared Mode</text>
+                            </g>
+                        </a>
+
+                        <!-- KHÓA 9: Online Host/Server Mode -->
+                        <a href="multiplayer-host-server.html">
+                            <g transform="translate(520, 680)" class="roadmap-node-g" data-course-id="csharp">
+                                <rect width="220" height="50" rx="8" fill="#111827" stroke="#2563eb" stroke-width="2" />
+                                <text x="110" y="22" fill="#60a5fa" font-size="10" font-family="'Inter', sans-serif" font-weight="700" text-anchor="middle">KHÓA 9</text>
+                                <text x="110" y="38" fill="#ffffff" font-size="11" font-family="'Outfit', sans-serif" font-weight="600" text-anchor="middle">Photon Fusion 2: Host & Server</text>
+                            </g>
+                        </a>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- Courses Grid Section -->
+        <section id="courses" class="container">
+            <div class="section-title-wrap">
+                <h2 class="section-title">Hệ Thống 10 Khóa Học Chi Tiết</h2>
+                <p class="section-subtitle">Chương trình học thực tế, cập nhật liên tục theo xu thế tuyển dụng và yêu cầu kỹ thuật của các Studio game hiện nay.</p>
+            </div>
+
+            <div class="courses-grid" id="courses-grid-root">
+                <!-- Courses cards will be loaded dynamically from courses.json by script.js -->
+            </div>
+        </section>
+
+        <!-- CTA section -->
+        <section id="cta" class="cta-section">
+            <div class="cta-box">
+                <h2>Bắt đầu hành trình của bạn ngay hôm nay</h2>
+                <p>Bạn chưa biết chọn khóa học nào? Để lại thông tin để nhận tư vấn lộ trình học phù hợp nhất với bản thân hoàn toàn miễn phí.</p>
+                <a href="mailto:contact@example.com" class="btn btn-primary">Gửi email đăng ký tư vấn</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© 2026 EXP Academy. Tất cả quyền được bảo lưu. Thiết kế cho lập trình game chuyên nghiệp.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -5,6 +5,26 @@ All notable changes to Explog CMS will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.11] - 2026-07-28
+
+### Added
+- **Developer Helper Script (`explog.bat` / `explog.ps1`)**: Root directory command wrapper helper script allowing executing cms commands directly like `explog build` or `explog serve` on Windows CMD and PowerShell without cargo boilerplate.
+
+## [0.3.10] - 2026-07-28
+
+### Added
+- **Gmail Notification Plugin** (`plugins/gmail-sender`): Send secure email notifications via Gmail SMTP after site build using App Password.
+- Support configuring plugin enabled status in `explog.toml`.
+- Auto-execution of plugin hooks (`after_content_load`, `before_render`, `after_build`, `on_dev_start`).
+- Auto-conversion of hook script file extensions (.sh/.bat) for cross-platform support.
+- Pass `EXPLOG_PLUGIN_DIR` env variable to hook scripts.
+
+## [0.3.9] - 2026-07-27
+
+### Added
+- **Unity Course System Landing Pages** (`content/pages/unity-courses/`): Created a comprehensive, professional, and responsive interactive roadmap/portal and 10 detailed landing pages for Unity Game Development courses.
+- Course navigation link added to site configuration (`explog.toml`).
+
 ## [0.3.8] - 2026-01-21
 
 ### Added

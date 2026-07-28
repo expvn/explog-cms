@@ -107,14 +107,29 @@ impl PluginRegistry {
             return Ok(());
         }
         
+        // Load explog.toml to check enabled plugins if it exists
+        let enabled_plugins = if Path::new("explog.toml").exists() {
+            match crate::core::config::load_config("explog.toml") {
+                Ok(cfg) => Some(cfg.plugins),
+                Err(_) => None,
+            }
+        } else {
+            None
+        };
+        
         for entry in fs::read_dir(dir)? {
             let entry = entry?;
             let path = entry.path();
             
             if path.is_dir() {
                 match self.load_plugin(&path) {
-                    Ok(plugin) => {
-                        info!("Loaded plugin: {} v{}", plugin.manifest.plugin.name, plugin.manifest.plugin.version);
+                    Ok(mut plugin) => {
+                        if let Some(ref enabled_map) = enabled_plugins {
+                            plugin.enabled = enabled_map.get(&plugin.manifest.plugin.name)
+                                .map(|c| c.enabled)
+                                .unwrap_or(false);
+                        }
+                        info!("Loaded plugin: {} v{} (enabled: {})", plugin.manifest.plugin.name, plugin.manifest.plugin.version, plugin.enabled);
                         self.plugins.push(plugin);
                     }
                     Err(e) => {
@@ -223,7 +238,33 @@ impl LoadedPlugin {
             None => return Ok(()),
         };
         
-        let script_path = Path::new(&self.path).join(script);
+        let mut script_path = Path::new(&self.path).join(script);
+        
+        // Cross-platform script path resolution
+        #[cfg(windows)]
+        {
+            if script_path.extension().and_then(|s| s.to_str()) == Some("sh") {
+                let bat_path = script_path.with_extension("bat");
+                if bat_path.exists() {
+                    script_path = bat_path;
+                } else {
+                    let cmd_path = script_path.with_extension("cmd");
+                    if cmd_path.exists() {
+                        script_path = cmd_path;
+                    }
+                }
+            }
+        }
+        
+        #[cfg(not(windows))]
+        {
+            if script_path.extension().and_then(|s| s.to_str()) == Some("bat") || script_path.extension().and_then(|s| s.to_str()) == Some("cmd") {
+                let sh_path = script_path.with_extension("sh");
+                if sh_path.exists() {
+                    script_path = sh_path;
+                }
+            }
+        }
         
         if !script_path.exists() {
             anyhow::bail!("Hook script not found: {}", script_path.display());
@@ -237,6 +278,7 @@ impl LoadedPlugin {
             .env("EXPLOG_CONTENT_DIR", &context.content_dir)
             .env("EXPLOG_THEME_DIR", &context.theme_dir)
             .env("EXPLOG_HOOK", hook.to_string())
+            .env("EXPLOG_PLUGIN_DIR", &self.path)
             .current_dir(&self.path)
             .output()
             .with_context(|| format!("Failed to execute {}", script_path.display()))?;
@@ -244,6 +286,13 @@ impl LoadedPlugin {
         if !output.status.success() {
             let stderr = String::from_utf8_lossy(&output.stderr);
             anyhow::bail!("Hook script failed: {}", stderr);
+        }
+        
+        let stdout = String::from_utf8_lossy(&output.stdout);
+        if !stdout.is_empty() {
+            for line in stdout.lines() {
+                info!("  [{}] {}", self.manifest.plugin.name, line);
+            }
         }
         
         Ok(())

@@ -5,7 +5,7 @@
 **Project Name:** Explog CMS  
 **Type:** Static Site Generator (SSG)  
 **Language:** Rust  
-**Version:** 0.3.8  
+**Version:** 0.3.9  
 **Target Scale:** 500,000+ posts  
 **Core Philosophy:** "Pure Static" — Zero Runtime, Deterministic Builds, Plugin-Extensible.
 

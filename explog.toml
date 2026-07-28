@@ -27,6 +27,10 @@ label = "Game"
 url = "/expgames/"
 
 [[site.navigation]]
+label = "Khóa học Unity"
+url = "/unity-courses/"
+
+[[site.navigation]]
 label = "Giới thiệu"
 url = "/about/"
 
@@ -68,3 +72,7 @@ pages_dir = "content/pages"
 [seo]
 generate_sitemap = true
 generate_rss = true
+
+# Plugins Configuration
+[plugins]
+
